@@ -1,0 +1,29 @@
+.block {
+    &-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+        flex-direction: column;
+        padding: var(--spacing-xxl) var(--spacing-s);
+        text-align: center;
+        color: var(--blue);
+
+        @include media-breakpoint-up(md) {
+            padding: var(--spacing-xxl) 0;
+        }
+
+        .titulo {
+            padding-bottom: var(--spacing-xs);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-size: var(--font-size-xl);
+        }
+    }
+}

@@ -1,0 +1,44 @@
+.news {
+  &-container {
+    display: grid;
+    grid-template-columns: 1f;
+  }
+
+  &-item{
+    position: relative;
+    text-align: center;
+    padding-bottom: var(--spacing-xxs);
+  }
+
+  &-link{
+    display: block;
+    height: 100%;
+    color: var(--primary);
+    @include flex-center;
+  }
+
+  &-image {
+    position: absolute;
+    top: 0;
+    left:0;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    z-index: -1;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    picture {
+      display: none;
+      object-fit: contain;
+      object-position: center;
+    }
+
+  }
+
+}

@@ -1,0 +1,113 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% for item in post.meta('content_flexible') %}
+
+	{% if arriba == 'si' %}
+		{% if item.acf_fc_layout == 'titulo_row' and item.colocar_arriba == '1' %}
+			{% include "blocks/block-title.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'imaxe_row' and item.colocar_arriba == '1' %}
+			{% include "blocks/block-imaxe.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'video_row' and item.colocar_arriba == '1' %}
+			{% include "blocks/block-video.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'shortcode_row' and item.colocar_arriba == '1' %}
+			{% include "blocks/block-shortcode.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'text_row' and item.colocar_arriba == '1' %}
+			{% include "blocks/block-contido-1.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'text_3_row' and item.colocar_arriba == '1' %}
+			{% include "blocks/block-contido-3.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'banners_grid_row' and item.colocar_arriba == '1' %}
+			{% include "blocks/block-tarxetas.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'acordeon_row' and item.colocar_arriba == '1' %}
+			{% include "blocks/block-acordeon.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'eventos_row' and item.colocar_arriba == '1' %}
+			{% include "blocks/block-eventos.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'related_row' and item.colocar_arriba == '1' %}
+			{% include "blocks/block-related.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'boton_row' and item.colocar_arriba == '1' %}
+			{% include "blocks/block-boton.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'espazo_row' and item.colocar_arriba == '1' %}
+			{% include "blocks/block-espazo.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'galeria_row' and item.colocar_arriba == '1' %}
+			{% include "blocks/block-gallery.twig" %}
+		{% endif %}
+
+	{% else %}
+
+		{% if item.acf_fc_layout == 'titulo_row' and item.colocar_arriba != '1' %}
+			{% include "blocks/block-title.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'imaxe_row' and item.colocar_arriba != '1' %}
+			{% include "blocks/block-imaxe.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'video_row' and item.colocar_arriba != '1' %}
+			{% include "blocks/block-video.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'shortcode_row' and item.colocar_arriba != '1' %}
+			{% include "blocks/block-shortcode.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'text_row' and item.colocar_arriba != '1' %}
+			{% include "blocks/block-contido-1.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'text_3_row' and item.colocar_arriba != '1' %}
+			{% include "blocks/block-contido-3.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'banners_grid_row' and item.colocar_arriba != '1' %}
+			{% include "blocks/block-tarxetas.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'acordeon_row' and item.colocar_arriba != '1' %}
+			{% include "blocks/block-acordeon.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'eventos_row' and item.colocar_arriba != '1' %}
+			{% include "blocks/block-eventos.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'related_row' and item.colocar_arriba != '1' %}
+			{% include "blocks/block-related.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'boton_row' and item.colocar_arriba != '1' %}
+			{% include "blocks/block-boton.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'espazo_row' and item.colocar_arriba != '1' %}
+			{% include "blocks/block-espazo.twig" %}
+		{% endif %}
+
+		{% if item.acf_fc_layout == 'galeria_row' and item.colocar_arriba != '1' %}
+			{% include "blocks/block-gallery.twig" %}
+		{% endif %}
+	{% endif %}
+
+{% endfor %}

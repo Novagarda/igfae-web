@@ -1,0 +1,61 @@
+#loading-full {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 30;
+    overflow: hidden;
+    display: none;
+    &-inner {
+        width: 100%;
+        height: 100%;
+        background-color: var(--blue);
+        @include transition(opacity, 0.3s);
+        animation: mover 2s ease-in infinite;
+        opacity: 0;
+    }
+
+}
+
+#loading-full-back {
+    background-color: var(--blue-light);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 29;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    transform: translateX(100%);
+    @include transition(all, 0.3s);
+    display: none;
+    &.ver {
+        transform: translateX(0%);
+        opacity: 0.9;
+    }
+}
+
+@keyframes mover {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    20% {
+        transform: translateX(0%);
+    }
+
+    30% {
+        transform: translateX(0%);
+    }
+
+    50% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}

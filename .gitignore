@@ -1,0 +1,23 @@
+# Secrets / local deploy
+.deploy.env
+.env
+.env.*
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# OS / editor
+.DS_Store
+*.code-workspace
+.idea/
+.vscode/
+
+# Logs / junk
+*.log
+custom.log
+npm-debug.log*
+yarn-error.log*
+
+# Hotfixes / scratch
+hotfixes/

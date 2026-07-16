@@ -1,0 +1,38 @@
+{% import 'macros/macros.twig' as macros %}
+
+<article class="tease tease-{{post.post_type}} list01" id="tease-{{post.ID}}">
+	{% block content %}
+		<div class="left">
+			<div class="date --font-size-xxs">
+				{{_e('Emprego', 'nvgrd')}}
+			</div>
+			<div class='tags'>
+				{% for item in post.categories %}
+					<span class="btnazul btn-xxs">
+						{{item.title}}
+					</span>
+				{% endfor %}
+			</div>
+		</div>
+
+		<div class="right">
+			<h2>
+				<a href="{{post.link}}">{{post.title}}</a>
+			</h2>
+			<p>{{post.get_preview}}</p>
+			<ul class="breadcump">
+				<li>{{ site.url|slice(8,lengthOfWebsite) }}</li>
+				<li>{{ _e('Emprego', 'nvgrd') }}</li>
+				<li>{{ post.title|length > 70 ? post.title|slice(0, 70) ~ '...' : post.title  }}</li>
+			</ul>
+		</div>
+
+		<div class="arrow" alt="arrow-right">
+			<svg xmlns="http://www.w3.org/2000/svg" width="18" height="17" viewbox="0 0 18 17" fill="none">
+				<path d="M9.44103 0.0892155L17.918 8.50457L9.44103 16.9199L8.46915 15.9582L16.0282 8.50457L8.46915 1.05097L9.44103 0.0892155Z" fill="#1E1E1C"/>
+				<path d="M17.1367 9.16992L-0.00164223 9.16992L-0.00164211 7.83415L17.1367 7.83415L17.1367 9.16992Z" fill="#1E1E1C"/>
+			</svg>
+		</div>
+
+	{% endblock %}
+</article>

@@ -1,0 +1,61 @@
+body {
+  transition: background-color 500ms ease;
+}
+
+.main {
+  transform-origin: center center;
+  min-height: 100vh;
+}
+
+#smooth-wrapper {
+  width: 75%;
+
+  @include media-breakpoint-down (xs) {
+    width: 100%;
+  }
+}
+
+.page {
+  &-title {
+    padding-bottom: var(--spacing-s);
+  }
+
+  &-subtitle {
+    padding-bottom: var(--spacing-s);
+  }
+}
+
+.caixa-principal {
+  display: grid;
+  grid-template-columns: 33% 55%;
+  column-gap: 12%;
+}
+
+@include media-breakpoint-down (xs) {
+  .page-wrapper {
+    padding-top: 30px;
+  }
+
+  .caixa-principal {
+    display: flex;
+    flex-direction: column;
+
+    .left {
+      margin-bottom: var(--spacing-m);
+    }
+  }
+}
+
+canvas {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+  mix-blend-mode: luminosity;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}

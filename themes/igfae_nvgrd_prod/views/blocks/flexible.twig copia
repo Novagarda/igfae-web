@@ -1,0 +1,17 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% for item in post.meta('content_flexible') %}
+	{% if item.acf_fc_layout == 'images_row' %}
+		{% include "blocks/block-gallery.twig" %}
+	{% elseif item.acf_fc_layout == 'video_row' %}
+		{% include "blocks/block-video.twig" %}
+	{% elseif item.acf_fc_layout == 'text_row' %}
+		{% include "blocks/block-text.twig" %}
+	{% elseif item.acf_fc_layout == 'title_row' %}
+		{% include "blocks/block-title.twig" %}
+	{% elseif item.acf_fc_layout == 'cards_row' %}
+		{% include "blocks/block-cards.twig" %}
+	{% elseif item.acf_fc_layout == 'shortcode_row' %}
+		{% include "blocks/block-shortcode.twig" %}
+	{% endif %}
+{% endfor %}

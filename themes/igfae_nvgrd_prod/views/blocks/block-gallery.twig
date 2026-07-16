@@ -1,0 +1,34 @@
+{% import 'macros/macros.twig' as macros %}
+
+<section class="block block-galeria bloque-galeria {{ item.filter_check ? ' --has-filter' }} {{item.borde ? ' --border'}}{{item.cor ? ' --' ~ item.cor}}{{item.ancla ? ' anclado'}}" {{item.ancla ? ' id="' ~ item.ancla|lower|replace({' ': '-', 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'ñ': 'n'} ) ~ '"' :'' }}>
+	<div class="reveal">
+		{% if item.titulo or item.introducion %}
+			<div class="grid grid-2 pad cabeza">
+				<div class="titulo azul --font-size-m">
+					{{item.titulo}}
+				</div>
+				<div class="texto pad-b">
+					{{item.introducion|wpautop}}
+				</div>
+			</div>
+		{% endif %}
+
+		{% if post.get_field('galeria') %}
+			{% set imaxes = post.get_field('galeria') %}
+		{% else %}
+			{% set imaxes = item.imaxes %}
+		{% endif %}
+
+		<div class="swiper{{item.borde ? ' pad' : ' pad-ceo'}}" data-lenght="{{imaxes|length}}">
+			<div class="swiper-wrapper">
+				{% for image in imaxes %}
+					<div class="swiper-slide">
+						{{ macros.imageLazy(image,'swiper-lazy img-fit') }}
+						<p class="--font-size-wws --spacing-xs-t">{{image.caption}}</p>
+						<div class="swiper-lazy-preloader"></div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</section>

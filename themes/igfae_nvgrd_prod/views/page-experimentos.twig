@@ -1,0 +1,31 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% extends "base.twig" %}
+
+{% block content %}
+	<section class="home-wrapper pax-projects">
+		<div class="medioalto medioalto-60 linha-baixa flex alinha-medio pad persoaltop">
+			<h1 class="--font-size-xxxl --font-size-mb-xl azul{{post.introducion ? ' --spacing-xl-b'}}">{{post.title}}</h1>
+			{{post.introducion ? '<div class="intro azul">' ~ post.introducion ~ '</div>' :''}}
+		</div>
+
+		<div class="pad experimentos">
+			{% for post in experimentos %}
+				<a href="{{ post.link }}" class="experimentos-post reveal carga-loading">
+					{% if post.imaxe_destacada %}
+						{{ macros.imageLazy(post.imaxe_destacada,'img-cadrada', '') }}
+					{% endif %}
+					<div class="right">
+						<div class="codigo azul">
+							{{ function('do_shortcode', '[nvgrd_get_codigo_programa id="'~ post.programa ~ '"]') }}
+						</div>
+						<h3 class="azul --font-size-ms">{{ post.title }}</h3>
+						<div class="espacio"></div>
+						<div class="intro --font-size-xxs">
+							{{ post.introducion }}
+						</div>
+					</div>
+				</a>
+			{% endfor %}
+			<div></section>
+		{% endblock %}

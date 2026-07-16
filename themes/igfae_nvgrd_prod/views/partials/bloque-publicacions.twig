@@ -1,0 +1,9 @@
+<div class="bloque-list-meritos anclado" id="publicacions">
+	<div class="reveal">
+		<div class="cabeza">
+			<h4 class="azul --font-size-m">{{_e('Publicacións', 'nvgrd')}}</h4>
+			<p><a href="{{publicacions_link}}?programm={{id_programa}}" class="btnnegro btn-xxs">{{_e('Ver todo', 'nvgrd')}}</a></p>
+		</div>
+		{{ function('do_shortcode', '[igfae_list_publications id="'~ id_programa ~ '"]') }}
+	</div>
+</div>

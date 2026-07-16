@@ -1,0 +1,284 @@
+:root {
+  --wpforms-field-border-radius: 0px !important;
+  --wpforms-field-border-style: solid !important;
+  --wpforms-field-border-size: 1px !important;
+  --wpforms-field-background-color: var(--gray-light) !important;
+  --wpforms-field-border-color: var(--blue) !important;
+  --wpforms-field-border-color-spare: rgba(0, 0, 0, 0.25) !important;
+  --wpforms-field-text-color: var(--primary) !important;
+  --wpforms-field-menu-color: var(--white) !important;
+  --wpforms-label-color: var(--blue) !important;
+  --wpforms-label-sublabel-color: var(--gray-dark) !important;
+  --wpforms-label-error-color: var(--red) !important;
+  --wpforms-button-border-radius: 0px !important;
+  --wpforms-button-border-style: none !important;
+  --wpforms-button-border-size: 1px !important;
+  --wpforms-button-background-color: var(--blue) !important;
+  --wpforms-button-border-color: var(--blue) !important;
+  --wpforms-button-text-color: var(--white) !important;
+  --wpforms-page-break-color: var(--blue) !important;
+  --wpforms-background-image: none !important;
+  --wpforms-background-position: center center !important;
+  --wpforms-background-repeat: no-repeat !important;
+  --wpforms-background-size: cover !important;
+  --wpforms-background-width: 100px !important;
+  --wpforms-background-height: 100px !important;
+  --wpforms-background-color: rgba(0, 0, 0, 0) !important;
+  --wpforms-background-url: none !important;
+  --wpforms-container-padding: 0px !important;
+  --wpforms-container-border-style: none !important;
+  --wpforms-container-border-width: 1px !important;
+  --wpforms-container-border-color: #000000 !important;
+  --wpforms-container-border-radius: 0px !important;
+  --wpforms-field-size-input-height: 43px !important;
+  --wpforms-field-size-input-spacing: var(--spacing-xxs) !important;
+  --wpforms-field-size-font-size: var(--font-size-xs) !important;
+  --wpforms-field-size-line-height: 19px !important;
+  --wpforms-field-size-padding-h: 14px !important;
+  --wpforms-field-size-checkbox-size: var(--font-size-xs) !important;
+  --wpforms-field-size-sublabel-spacing: 5px !important;
+  --wpforms-field-size-icon-size: 1 !important;
+  --wpforms-label-size-font-size: var(--font-size-xs) !important;
+  --wpforms-label-size-line-height: 19px !important;
+  --wpforms-label-size-sublabel-font-size: var(--font-size-xs) !important;
+  --wpforms-label-size-sublabel-line-height: var(--font-size-xs) !important;
+  --wpforms-button-size-font-size: var(--font-size-xs) !important;
+  --wpforms-button-size-height: 41px !important;
+  --wpforms-button-size-padding-h: var(--spacing-m) !important;
+  --wpforms-button-size-margin-top: 10px !important;
+  --wpforms-container-shadow-size-box-shadow: none !important;
+}
+
+.filtros {
+  .form {}
+
+  .form-bloque {
+    padding-top: var(--spacing-m);
+
+    h5 {
+      margin-bottom: var(--spacing-s);
+    }
+
+    input[type=submit] {
+      width: auto;
+    }
+  }
+
+  input {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--primary);
+    width: 100%;
+  }
+
+  label {
+    width: 100%;
+  }
+
+  input[type=email] {
+    margin-bottom: var(--spacing-xxs);
+  }
+
+  input[type="submit"] {
+    background-color: var(--blue-dark);
+  }
+
+  // RADIO
+  // Estilo dos radios collido de https://josetxu.com/aplicar-estilos-css-a-campos-radio-y-checkbox/
+  .radios {
+    display: flex;
+    gap: var(--spacing-xxs);
+    flex-wrap: wrap;
+
+    label {
+      cursor: pointer;
+      padding: 0 0.6em;
+      box-sizing: border-box;
+      color: var(--blue-light);
+      background: var(--blue);
+      @include transition(all, 0.3s);
+    }
+  }
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  input[type="radio"]+label,
+  input[type="checkbox"]+label {
+    border-radius: 100rem;
+    padding: 0.2rem 1rem 0.3rem 1rem !important;
+  }
+
+  input[type="radio"]:checked+label, input[type="checkbox"]:checked+label {
+    color: var(--white);
+    background: var(--black);
+  }
+
+  #igfae-search-form input[type="text"].buscar {
+    margin-bottom: var(--spacing-m);
+  }
+
+  .wpcf7-form-control-wrap {
+    width: 100%;
+  }
+
+  .wpcf7-form-control-wrap textarea {
+    width: 100%;
+    margin-top: var(--spacing-xs)
+  }
+
+  .wpcf7-form-control-wrap input {
+    padding-top: var(--spacing-xs);
+  }
+
+  .wpcf7-form label {
+    padding-bottom: var(--spacing-s);
+  }
+
+  .wpcf7-form-control-wrap * {
+    font-size: var(--font-size-xs);
+  }
+
+  .wpcf7-submit {
+    text-align: left;
+    width: auto;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .wpcf7-list-item {
+    margin: 0;
+  }
+
+  .verificacion {
+    font-size: .8em;
+  }
+
+  input[type=checkbox],
+  input[type=radio] {
+    height: 10px;
+    width: 10px;
+  }
+}
+
+
+.wpforms-container input {
+  width: 100% !important;
+}
+
+.wpforms-container input {
+  background-color: transparent !important;
+  border: 0 !important;
+}
+
+.wpforms-container label {
+  width: 100% !important;
+}
+
+.wpforms-container input[type=email] {
+  margin-bottom: var(--spacing-xxs) !important;
+}
+
+.wpforms-container .wpforms-field-label,
+.wp-core-ui div.wpforms-container .wpforms-field-label {
+  font-weight: 500 !important;
+}
+
+.wpforms-container input.wpforms-field-medium // RADIO
+
+// Estilo dos radios collido de https://josetxu.com/aplicar-estilos-css-a-campos-radio-y-checkbox/
+.radios,
+.checkboxs {
+  display: flex !important;
+  gap: var(--spacing-xxs) !important;
+  flex-wrap: wrap !important;
+
+  input[type="radio"],
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  label {
+    cursor: pointer !important;
+    padding: 0 0.6em !important;
+    box-sizing: border-box !important;
+    color: var(--blue-light) !important;
+    background: var(--blue) !important;
+    @include transition(all, 0.3s);
+
+    @media (hover: hover) {
+      &:hover {
+        background: var(--blue-dark) !important;
+      }
+    }
+  }
+  input[type="radio"]:checked+label, input[type="checkbox"]:checked+label {
+    color: var(--white) !important;
+    background: var(--black) !important;
+  }
+}
+
+.wpforms-container {
+
+  input[type="radio"],
+  input[type="checkbox"] {
+    display: block !important;
+  }
+
+  input[type=text],
+  input[type=email],
+  input[type=number] {
+    border: 1px solid var(--blue) !important;
+  }
+
+}
+
+.wpforms-form {
+  width: 100% !important;
+}
+
+.wpforms-form textarea {
+  width: 100% !important;
+  margin-top: var(--spacing-xs)
+}
+
+.wpforms-form input {
+  max-width: 100% !important;
+  padding-top: var(--spacing-xs) !important;
+}
+
+.wpforms-container select.wpforms-field-medium {
+  max-width: 100% !important;
+  border: 1px solid var(--blue) !important;
+}
+
+div.wpforms-container-full .wpforms-form .wpforms-field.wpforms-field-select-style-classic select[multiple]>option {
+  box-shadow: 0 1px 0 0 var(--blue) !important;
+}
+
+.wpforms-form label {
+  padding-bottom: var(--spacing-s) !important;
+}
+
+.wpforms-form * {
+  font-size: var(--font-size-xs) !important;
+}
+
+.wpforms-container .wpforms-field-label,
+.wp-core-ui div.wpforms-container .wpforms-field-label {
+  font-weight: 500 !important;
+}
+
+div.wpforms-container-full input[type=checkbox]:before,
+div.wpforms-container-full input[type=radio]:before {
+  border-radius: 0px !important;
+}
+
+.wpforms-container input[type=checkbox],
+.wpforms-container input[type=radio] {
+  height: 10px !important;
+  width: 10px !important;
+}

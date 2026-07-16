@@ -1,0 +1,22 @@
+{% import 'macros/macros.twig' as macros %}
+
+<article class="">
+	<div class="--font-size-ms nova-item reveal">
+		<div class="data --spacing-xs-b --font-size-xxs">{{ item.date('d.m.Y') }}</div>
+		<h3><a href="{{item.link}}" class="stretched-link dobre-clic bread-link" data-breadcurrent="novas" data-breadparent="sociedade">{{item.title}}</h3></a>
+		<div class="espacio"></div>
+		<div class="cats">
+			{% for cati in item.get_terms('category') %}
+				<div class="btnazul btn-xxs">{{cati}}</div>
+			{% endfor %}
+		</div>
+
+		<div class="imx">
+			{% if item.thumbnail %}
+				{{ macros.imageLazy(item.thumbnail,'', '') }}
+			{% endif %}
+		</div>
+	</div>
+	
+
+</article>

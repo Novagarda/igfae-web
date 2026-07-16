@@ -1,0 +1,12 @@
+// REVEAL
+.reveal{
+  position: relative;
+  transform: translateY(50px);
+  opacity: 0;
+  @include transition(all, 0.5s);
+  &.revealed{
+    transform: translateY(0);
+    opacity: 1;  
+    @include transition(all, 0.5s);
+  }
+}

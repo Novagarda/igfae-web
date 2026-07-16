@@ -1,0 +1,153 @@
+.buscar-full {
+    position: fixed;
+    width: 75vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(225, 225, 225, 0.9);
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(100%);
+    @include transition(transform, 0.3s);
+
+    &.ver {
+        transform: translateX(0);
+        @include transition(transform, 0.3s);
+    }
+
+    form {
+        width: 50%;
+        border: 1px solid var(--blue);
+        border-radius: 100rem;
+        background-color: var(--gray-light);
+        position: relative;
+        padding: var(--spacing-s) var(--spacing-s) var(--spacing-s) var(--spacing-l);
+        display: flex;
+        align-items: center;
+
+        input[type="text"] {
+            border-bottom: none;
+            color: var(--blue);
+            padding-right: var(--spacing-xl);
+            width: 100%;
+            background: transparent !important;
+            border: 0;
+        }
+
+        input[type="submit"] {
+            position: absolute;
+            right: 2rem;
+            width: 2rem;
+            background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 28.4.1, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 18 17' style='enable-background:new 0 0 18 17;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%231F32FF;%7D%0A%3C/style%3E%3Cpath class='st0' d='M9.4,0.1l8.5,8.4l-8.5,8.4l-1-1L16,8.5L8.5,1.1L9.4,0.1z'/%3E%3Cpath class='st0' d='M17.1,9.2H0l0-1.3h17.1V9.2z'/%3E%3C/svg%3E%0A");
+            border-bottom: none;
+            background-position: right;
+            background-repeat: no-repeat;
+            background-color: transparent !important;
+            border: 0;
+        }
+    }
+
+    .btnclose {
+        position: absolute;
+        top: var(--spacing-xxs);
+        right: var(--spacing-s);
+        &::before, &::after{
+            background-color: var(--blue);
+        }
+    }
+
+    @include media-breakpoint-down (xs) {
+        width: 100vw;
+
+        .btnclose {
+            top: 2.5rem;
+        }
+
+        form {
+            width: 90%;
+        }
+    }
+}
+
+.buscar {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid var(--blue);
+
+    .dentro {
+        width: 75%;
+        text-align: center;
+    }
+
+    form {
+        border-bottom: 1px dotted var(--blue);
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        input[type="text"] {
+            border-bottom: none;
+            color: var(--blue);
+            text-align: center;
+            font-size: var(--font-size-xxl);
+            width: 100% !important;
+            background: transparent !important;
+            border: 0;
+        }
+
+        input[type="submit"] {
+            position: absolute;
+            right: var(--spacing-s);
+            width: 2rem;
+            background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 28.4.1, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 18 17' style='enable-background:new 0 0 18 17;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%231F32FF;%7D%0A%3C/style%3E%3Cpath class='st0' d='M9.4,0.1l8.5,8.4l-8.5,8.4l-1-1L16,8.5L8.5,1.1L9.4,0.1z'/%3E%3Cpath class='st0' d='M17.1,9.2H0l0-1.3h17.1V9.2z'/%3E%3C/svg%3E%0A");
+            border-bottom: none;
+            background-position: right;
+            background-repeat: no-repeat;
+            margin-top: 1.5rem;
+            background-color: transparent !important;
+            border: 0;
+        }
+    }
+
+    @include media-breakpoint-down (xs) {
+        form {
+            input[type="text"] {
+                font-size: var(--font-size-l);
+            }
+
+            input[type="submit"] {
+                margin-top: 0.8rem;
+                right: 0;
+            }
+        }
+    }
+}
+
+.tease {
+    position: relative;
+    grid-template-columns: 10rem 1fr 2rem;
+
+    &-title {
+        padding-bottom: var(--spacing-xs);
+    }
+
+    .tags {
+        display: flex;
+        gap: var(--spacing-xs);
+        flex-wrap: wrap;
+
+        >* {
+            flex: auto;
+        }
+        &.capitalizados{
+            text-transform: capitalize;
+        }
+    }
+
+}

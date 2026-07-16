@@ -1,0 +1,76 @@
+{% import 'macros/macros.twig' as macros %}
+
+{# header #}
+<nav class="navmain">
+	<ul class="navmain-nav">
+		{% set contador = 0 %}
+		{% for nav in main.get_items if main.get_items %}
+			{% set contador = contador + 1 %}
+			<li class="navmain-item">
+				{% if nav.children is defined and nav.children|length > 0 %}
+					{% if ('sociedade' in nav.class and e_nova) 
+						or ('investigacion' in nav.class and e_experimento) 
+						or ('sociedade' in nav.class and e_actividad) 
+						or ('equipo' in nav.class and e_persoa) 
+						or ('equipo' in nav.class and e_oferta)
+						or ('investigacion' in nav.class and e_programa_investigacion)
+						or ('sociedade' in nav.class and e_axenda) %}
+						<div id="{{contador}}" class="navmain-drop current-menu-ancestor {{nav.class}}{{nav.carga_loading ? ' carga-loading'}}">
+						{% else %}
+							<div id="{{contador}}" class="navmain-drop {{nav.class}}{{nav.carga_loading ? ' carga-loading'}}">
+							{% endif %}
+
+							{{nav.title}}
+
+						{% else %}
+							<a href={{nav.link}} class="navmain-link dim {{nav.class}}">{{nav.title}}</a>
+						{% endif %}
+
+						{% if nav.children is defined and nav.children|length > 0 %}
+							<ul class="subnav">
+								{% for child in nav.children %}
+									<li class="subnav-item">
+
+										{% if child.children is defined and child.children|length > 0 %}
+											{% if ('actividades' in child.class and e_actividad and post_non_ten_fillos) %}
+												<div class="navmain-drop baby {{child.class}} current-menu-item">
+												{% else %}
+													<div class="navmain-drop baby {{child.class}}">
+													{% endif %}
+													<a class="dim lolo" href={{child.link}}>{{child.title}}</a>
+												{% else %}
+													{% if ('novas' in child.class and e_nova) 
+											or ('experimentos' in child.class and e_experimento) 
+											or ('actividades' in child.class and e_actividad) 
+											or ('persoal' in child.class and e_persoa) 
+											or ('emprego' in child.class and e_oferta)
+											or ('programa' in child.class and e_programa_investigacion)
+											or ('axenda' in child.class and e_axenda) %}
+														<a href={{child.link}} class="subnav-link navmain-link dim current-menu-item {{ child.class }}{{child.carga_loading ? ' carga-loading'}}">{{child.title}}</a>
+													{% else %}
+														<a href={{child.link}} class="subnav-link navmain-link dim {{ child.class }}{{child.carga_loading ? ' carga-loading'}}">{{child.title}}</a>
+													{% endif %}
+												{% endif %}
+
+												{% if child.children is defined and child.children|length > 0 %}
+													<ul class="subnav">
+														{% for baby in child.children %}
+															<li class="subnav-item">
+																<a href="{{ baby.link }}" class="subnav-link navmain-link dim {{ baby.class }}{{baby.carga_loading ? ' carga-loading'}}">{{ baby.title }}</a>
+															</li>
+														{% endfor %}
+													</ul>
+												</div>
+											{% endif %}
+
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+						{% endif %}
+
+					</li>
+				{% endfor %}
+			</li>
+		</ul>
+	</nav>

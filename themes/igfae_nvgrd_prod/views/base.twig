@@ -1,0 +1,73 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% block html_head %}
+	{% include 'html-header.twig' %}
+	{% block head %}{% endblock %}
+	{% include "partials/top-scripts.twig" %}
+</head>{% endblock %}<body class="{{body_class}} {{bodyClass}} {{post.class}}" data-template="base.twig">
+<canvas class="pixel-canvas"></canvas>
+
+{% include 'components/preload.twig' %}
+
+
+<div id="navtop-mob" class="navtop-mob">
+
+	<a href="{{site.link}}" class="navtop-mob-logo">
+		<img alt="{{site.title}}" src="{{ theme_uri_versioned('assets/img/igfae-logo.svg') }}"/>
+	</a>
+	<button id="btn-bocata-abrir" type="button" class="navtop-mob-bocata">
+		<span></span>
+		<span></span>
+		<span></span>
+	</button>
+
+</div>
+
+<div id="buscar_container" class="buscar-full">
+	{{ function('get_search_form') }}
+	<button id="buscar_close" type="button" class="btnclose"></button>
+</div>
+
+{% include 'components/header.twig' %}
+
+{% include 'components/topnav.twig' %}
+
+
+<div id="smooth-wrapper" class="relative">
+
+	{% include 'components/loadingbar.twig' %}
+
+	<div id="swup" class="transition-fade">
+
+
+		<div class="brandtop">
+
+			<div class="loganima azul --font-size-xxs">
+				<span>Instituto Galego</span>
+				<span>de Física</span>
+				<span>de Altas Enerxías</span>
+			</div>
+			<img class="brandtop-right" src="{{ theme_uri_versioned('assets/img/igfae-logo-circulos.svg') }}"/>
+		</div>
+
+		{% block content %}
+			Sorry, no content
+		{% endblock %}
+
+		{# Footer #}
+		{% block footer %}
+			{% include 'components/footer.twig' %}
+		{% endblock %}
+	</div>
+</div>
+{# smooth-wrapper  #}
+
+{# menu mobile #}
+{# 
+{% include "components/aside.twig" %}
+#}
+
+{{ function('wp_footer') }}
+	{% if options.cookies_check %}
+{% include "partials/cookie-notice.twig" %}
+{% endif %}{% include 'partials/bottom-scripts.twig' %}</body></html>

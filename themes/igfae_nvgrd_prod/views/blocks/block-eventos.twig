@@ -1,0 +1,18 @@
+{% import 'macros/macros.twig' as macros %}
+
+
+<section class="block block-eventos{{item.ancla ? ' anclado'}}{{item.borde ? ' --border'}}{{item.cor ? ' --' ~ item.cor}}">
+	<div class="reveal">
+		{% if item.titulo %}
+			<div class="block-titulo pad --spacing-m-b">
+				<h3 class="--font-size-m">{{item.titulo}}</h3>
+				<div>
+					<a href="{{page_agenda_permalink}}" class="btnnegro">{{_e('Ver todo', 'nvgrd')}}</a>
+				</div>
+			</div>
+		{% endif %}
+
+		{{ function('do_shortcode', '[igfae_events limit="100" paginar="0" destacados="1" order="ASC" upcoming="1"]') }}
+	</div>
+
+</section>

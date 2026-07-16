@@ -1,0 +1,105 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% extends "base.twig" %}
+
+{% block content %}
+	<section class="page-wrapper pax-publicacions">
+		<div class="medioalto flex alinha-medio pad persoaltop">
+			<h1 class="--font-size-mb-xl --font-size-xxxl azul">{{post.title}}</h1>
+		</div>
+
+		<div class="introducion pad tres_quintos">{{post.introducion}}</div>
+
+		{% if post.imaxe_destacada %}
+			<div class="medioalto reveal imx">
+				{{ macros.imageLazy(post.imaxe_destacada,'img-blue img-centrar', '') }}
+			</div>
+		{% endif %}
+
+		<div class="bloque bloque-titulo-esquerda reveal pad">
+			<div class="titulo-intro left azul --font-size-m">
+				{{post.title}}
+			</div>
+			<div class="right">
+				{{post.contido}}
+			</div>
+		</div>
+
+		<div class="pad reveal ver-desktop">
+			<div class="list-areas bloque-areas-big">
+				<div class="grid grid-3">
+					{% for post in areas %}
+						<a href="{{ post.link }}" class="azul titulo carga-loading">
+							{{ post.title }}
+						</a>
+					{% endfor %}
+				</div>
+
+				<div class="grid grid-3">
+					{% for post in areas %}
+						<a class="codigo azul" href="{{post.link}}">{{ post.codigo }}</a>
+					{% endfor %}
+				</div>
+
+				<div class="grid grid-3 --spacing-xxxl-t">
+					{% for post in areas %}
+						<div class="intro">
+							{{ post.introducion }}
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+
+
+			<div class="list-programas bloque-programas grid grid-3 --spacing-xl-t">
+				{% for post in areas %}
+					<div>
+						<p class="titulo azul">{{ _e('Programas de investigación', 'nvgrd') }}</p>
+						{{ function('do_shortcode', '[nvgrd_programas id="'~ post.id ~ '"]') }}
+					</div>
+				{% endfor %}
+			</div>
+
+			<div class="list-programas bloque-experimentos grid grid-3 --spacing-xl-t">
+				{% for post in areas %}
+					<div>
+						<p class="titulo azul">{{ _e('Experimentos', 'nvgrd') }}</p>
+						{{ function('do_shortcode', '[nvgrd_experimentos id="'~ post.id ~ '"]') }}
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+
+		<div class="pad ver-mobil">
+			<div class="list-areas bloque-areas-big">
+				{% for post in areas %}
+					<div class="flex">
+
+						<a href="{{ post.link }}" class="azul titulo">
+							{{ post.title }}
+						</a>
+
+						<div class="codigo azul">
+							{{ post.codigo }}
+						</div>
+
+						<div class="intro">
+							{{ post.introducion }}
+						</div>
+
+						<div class="list-programas bloque-programas">
+							<p class="titulo azul">{{ _e('Programas de investigación', 'nvgrd') }}</p>
+							{{ function('do_shortcode', '[nvgrd_programas id="'~ post.id ~ '"]') }}
+						</div>
+
+						<div class="list-programas bloque-experimentos">
+							<p class="titulo azul">{{ _e('Experimentos', 'nvgrd') }}</p>
+							{{ function('do_shortcode', '[nvgrd_experimentos id="'~ post.id ~ '"]') }}
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+
+	</section>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% import 'macros/macros.twig' as macros %}
+
+<section class="block block-shortcode {{item.cor ? ' --' ~ item.cor}}{{item.ancla ? ' anclado'}}" {{item.ancla ? ' id="' ~ item.ancla|lower|replace({' ': '-', 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'ñ': 'n'} ) ~ '"' :'' }}>
+	<div class="reveal">
+		<div class='grid grid-2 pad '>
+			<div class='left'></div>
+			<div class='right'>
+				{{ function('do_shortcode',item.shortcode) }}
+			</div>
+		</div>
+
+	</div>
+</section>

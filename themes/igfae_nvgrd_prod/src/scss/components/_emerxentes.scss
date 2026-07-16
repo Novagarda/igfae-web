@@ -1,0 +1,86 @@
+.filtros{
+    position: fixed;
+    right: 25vw;
+    top: 0;
+    background-color: var(--gray-light);
+    border-left: 1px solid var(--blue);
+    padding: var(--spacing-s);
+    width: 25vw;
+    height: 100vh;
+    transform: translateX(100%);
+    z-index: 40;
+    overflow-y: scroll;
+    @include transition(transform, 0.4s);
+    .btnclose{
+        position: absolute;
+        right: var(--spacing-s);
+        top: var(--spacing-s);
+        &::before, &::after{
+            background-color: var(--blue);
+        }
+    }
+    &.ver{
+        transform: translateX(0);
+        @include transition(transform, 0.4s);
+    }
+    @include media-breakpoint-down (xs) {
+        right: 0vw;
+        width: 90vw;
+        .btnclose{
+            top: 40px;
+        }
+    }
+    &-dentro{
+        padding-top: 7.1rem;
+    }
+}
+
+.caixa-emerxente{
+    overflow-y: scroll;
+    position: fixed;
+    top: 0;
+    width: 50vw;
+    right: 25vw;
+    height: 100vh;
+    transform: translateX(100%);
+    @include transition(transform, 0.4s);
+    &.backazul{
+        background-color: var(--blue);
+        color: var(--white);
+    }
+    &.ver{
+        transform: translateX(0);
+        @include transition(transform, 0.4s);
+    }
+    &.full{
+        width: 75vw;
+    }
+    .btnclose{
+        position: absolute;
+        right: var(--spacing-s);
+        top: var(--spacing-s);
+    }
+    .textop{
+        margin-top: var(--spacing-s);
+    }
+    .titulo{
+        margin-top: var(--spacing-xxl);
+    }
+    .todos-autores{
+    margin-top: var(--spacing-l);
+        p{
+            margin-bottom: var(--spacing-xxs);
+            &:last-child{
+                margin-bottom: 0;
+            }
+        }
+    }
+    @include media-breakpoint-down (xs) {
+        width: 90vw;
+        right: 0vw;
+        z-index: 30000;
+        .titulo{
+            margin-top: var(--spacing-xl);
+        }
+    }
+}

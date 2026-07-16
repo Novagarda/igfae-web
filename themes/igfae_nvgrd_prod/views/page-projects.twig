@@ -1,0 +1,15 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% extends "base.twig" %}
+
+{% block content %}
+	<section class="home-wrapper pax-projects">
+	    <div class="medioalto linha-baixa flex alinha-medio pad persoaltop">
+			<h1 class="--font-size-xxxl --font-size-mb-xl azul">{{post.title}}</h1>
+			<button id="btn-filtros" type="button" class="btnnegro">{{ __('Filtro', 'nvgrd') }}</button>
+		</div>
+
+		{{ function('do_shortcode', '[igfae_projects]') }}
+
+	</section>
+{% endblock %}

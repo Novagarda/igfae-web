@@ -1,0 +1,73 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% extends "base.twig" %}
+
+{% block content %}
+	<div class="home-wrapper">
+
+		<section class="home-swiper reveal">
+
+			<div class="swiper">
+
+				<div class="swiper-wrapper">
+
+					{% for item in post.get_field('destacados') %}
+						<div class="swiper-slide">
+							{% set has_mobile_image = item.imaxe_mobile %}
+							<div class='img {{ has_mobile_image ? ' has-mobile' : ' no-mobile' }}'>
+								<div class='img-desktop {{ has_mobile_image ? ' has-mobile' : ' no-mobile' }}'>
+									{% if item.imaxe %}
+										{{ macros.imageLazy(item.imaxe, 'swiper-lazy') }}
+									{% endif %}
+								</div>
+								{% if has_mobile_image %}
+									<div class='img-mobile'>
+										{{ macros.imageLazy(item.imaxe_mobile, 'swiper-lazy') }}
+									</div>
+								{% endif %}
+								<a class="stretched-link" href="{{ item.enlace.url }}" target="{{ item.enlace.target }}"></a>
+							</div>
+
+
+							<div class="caption">
+								{% if item.subtitulo %}
+									<p class="subtitle">{{ item.subtitulo }}</p>
+								{% endif %}
+								{% if item.enlace %}
+									<h2 class="title">
+										<a class="stretched-link" href="{{ item.enlace.url }}" target="{{ item.enlace.target }}">{{ item.titulo }}</a>
+									</h2>
+								{% else %}
+									<h2 class="title">{{ item.titulo }}</h2>
+								{% endif %}
+
+								{% if item.text %}
+									<p class="text">{{ item.text }}</p>
+								{% endif %}
+
+							</div>
+						</div>
+					{% endfor %}
+
+				</div>
+
+				<div class="swiper-paxinacion">
+					<div class='inner'>
+						<div class="swiper-button-prev"></div>
+						<div class="swiper-button-next"></div>
+					</div>
+
+				</div>
+
+			</div>
+
+		</section>
+
+		<section class="pres reveal">
+			<h1 class="">{{post.meta('contido')}}</h1>
+		</section>
+
+		{% include "blocks/flexible.twig" %}
+
+	</div>
+{% endblock %}

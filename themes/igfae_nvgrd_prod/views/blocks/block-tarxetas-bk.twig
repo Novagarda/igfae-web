@@ -1,0 +1,63 @@
+{% import 'macros/macros.twig' as macros %}
+
+
+<section class="block block-banners-grid{{item.borde ? ' --border'}}{{item.cor ? ' --' ~ item.cor}}{{item.ancla ? ' anclado'}}" {{item.ancla ? ' id="' ~ item.ancla|lower|replace({' ': '-', 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'ñ': 'n'} ) ~ '"' :'' }}>
+	<div class="reveal">
+		{% if item.titulo or item.introducion %}
+			<div class="grid grid-2{{item.borde ? ' pad' : ' pad-ceo'}}">
+
+				{% if item.titulo %}
+					<div class="titulo-intro left azul --font-size-m">
+						{{item.titulo|wpautop}}
+					</div>
+				{% endif %}
+
+				{% if item.introducion %}
+					<div class="right texto">
+						{{item.introducion|wpautop}}
+					</div>
+				{% endif %}
+
+			</div>
+		{% endif %}
+
+
+		<div class="grid grid-2 grid-tarxetas pad">
+
+			{% for banner in item.banner %}
+				{% if banner.link %}
+					<a href="{{banner.link}}" class="banner" {{ banner.link_externo ? ' target="_blank"'}}>
+					{% else %}
+						<div class="banner">
+						{% endif %}
+						{% if banner.imaxe %}
+							{{ macros.imageLazy(banner.imaxe,'img-blue img-centrar', '@1x') }}
+						{% endif %}
+
+						<div class="flex titulo">
+							<h3 class="--font-size-ms">{{banner.titulo}}</h3>
+							{% if banner.link %}
+								{% if item.cor == 'azul' or item.cor == 'negro' %}
+									<img alt="arrow-right" src="{{ theme_uri_versioned('assets/img/arrow-s-r-branco.svg') }}"/>
+								{% else %}
+									<img alt="arrow-right" src="{{ theme_uri_versioned('assets/img/arrow-s-r.svg') }}"/>
+								{% endif %}
+							{% endif %}
+						</div>
+
+						{% if banner.introducion %}
+							<div class="--spacing-xs-t">
+								{{banner.introducion}}
+							</div>
+						{% endif %}
+
+						{% if banner.link %}
+						</a>
+				{% else %}
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+
+</section>

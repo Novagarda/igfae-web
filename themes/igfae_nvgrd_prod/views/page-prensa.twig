@@ -1,0 +1,48 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% extends "base.twig" %}
+
+{% block content %}
+
+	{% set anclas = false %}
+	{% for bloque in post.meta('content_flexible') %}
+		{% if bloque.ancla %}
+			{% set anclas = true %}
+		{% endif %}
+	{% endfor %}
+
+	<section class="home-wrapper pax-projects">
+		<div class="medioalto linha-baixa flex alinha-medio pad persoaltop{{ anclas ? ' con-anclas-e-filtro':''}}">
+			<h1 class="--font-size-xxxl --font-size-mb-xl azul">{{post.title}}</h1>
+			<button id="btn-filtros" type="button" class="btnnegro elevar{{ anclas ? ' con-anclas-e-filtro':''}}">{{ __('Filtro', 'nvgrd') }}</button>
+		</div>
+
+		{% if anclas %}
+			<div class="tags nav-anclas">
+				<div class='tags-inner'>
+					<a class="tags-item btnazul btn-xs" href="#prensa">
+						Prensa
+					</a>
+					{% for bloque in post.meta('content_flexible') %}
+						{% if bloque.ancla %}
+							<a class="tags-item btnazul btn-xs" href="#{{bloque.ancla|lower|replace({' ': '-', 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'ñ': 'n'})}}">
+								{{bloque.ancla}}
+							</a>
+						{% endif %}
+					{% endfor %}
+				</div>
+
+				<div class='nav-anclas-bg'></div>
+			</div>
+		{% endif %}
+
+		<div id="prensa" class=''>
+			{{ function('do_shortcode', '[igfae_prensas]') }}
+		</div>
+
+		<div class="bloques-flexibles">
+			{% include "blocks/flexible.twig" %}
+		</div>
+
+	</section>
+{% endblock %}

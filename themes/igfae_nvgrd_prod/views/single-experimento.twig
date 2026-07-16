@@ -1,0 +1,98 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% extends "base.twig" %}
+
+{% block content %}
+
+	{% set anclas = false %}
+	{% for bloque in post.meta('content_flexible') %}
+		{% if bloque.ancla %}
+			{% set anclas = true %}
+		{% endif %}
+	{% endfor %}
+
+	<div class="single-wrapper" data-backtext="{{area_codigo}}">
+
+		<div class="encima">
+
+			<div class="grid grid-2der experimento pad --spacing-wwwl-t --spacing-s-t-mb{{anclas ? ' --spacing-xl-b'}}">
+				<div class="left">
+
+					<div class="featured-image">
+						{% if post.imaxe_destacada %}
+							{{ macros.imageLazy(post.imaxe_destacada,'img-cadrada img-blue', '') }}
+						{% endif %}
+					</div>
+				</div>
+
+				<div class="right">
+					<div class="caixa-titulo">
+						<h1 class="--font-size-xl azul w-25">{{post.title}}</h1>
+
+						{{post.introducion ? '<div class="intro --font-size-s">' ~ post.meta('introducion') ~ '</div>' :''}}
+					</div>
+				</div>
+			</div>
+
+			{# ANCLAS #}
+			{% include "partials/anclas.twig" with {'internas': 'si'} %}
+
+
+			<div class="grid grid-2der experimento pad --spacing-xs-t">
+				<div class="left">
+					<div class="w-25 sticky">
+
+						<div class="bloque-programas pequeno">
+							<p class="titulo azul">{{ _e('Área de investigación', 'nvgrd') }}</p>
+							<div class="programa-items">
+								<div>
+									<a href="{{area_link}}" class="azul dim carga-loading">
+										<span class="label">{{area_codigo}}</span>
+										{{area_titulo}}
+									</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="bloque-experimentos pequeno --spacing-s-t">
+							<p class="titulo azul">{{ _e('Programa de investigación', 'nvgrd') }}</p>
+							<div class="programa-items">
+								<div>
+									<a href="{{prog_link}}" class="azul dim carga-loading">
+										<span class="label">{{prog_codigo}}</span>
+										{{prog_titulo}}
+									</a>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="right">
+					<div class="texto">
+						{{post.meta('contido')}}
+					</div>
+				</div>
+			</div>
+
+			{# FLEXIBLE arriba #}
+			{% include "blocks/flexible.twig" with {'arriba': 'si'} %}
+
+			{# PERSOAL #}
+			{% include "partials/bloque-persoal.twig" with {'id_programa': programa_do_experimento} %}
+
+			{# PUBLICACIÓNS #}
+			{% include "partials/bloque-publicacions.twig" with {'id_programa': programa_do_experimento} %}
+
+			{# PROXECTOS #}
+			{% include "partials/bloque-proxectos.twig" with {'id_programa': programa_do_experimento} %}
+
+			<div class="bloques-flexibles">
+				{% include "blocks/flexible.twig" %}
+			</div>
+		</div>
+
+
+	</div>
+{% endblock %}

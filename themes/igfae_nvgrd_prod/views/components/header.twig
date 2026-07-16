@@ -1,0 +1,24 @@
+<header id="header-principal" class="header">
+	{% block header %}
+		<div class="header-top">
+			<a class="dim" href="{{options.link_base_de_datos}}" target="_blank">{{_e('Base de datos', 'nvgrd')}}</a>
+			<a class="dim" href="#" id="btn_buscar">{{_e('Buscar', 'nvgrd')}}</a>
+		</div>
+		<div class="header-logo">
+			<a href="{{site.link}}" id="home_link">
+				<img alt="{{site.title}}" src="{{ theme_uri_versioned('assets/img/igfae-logo.svg') }}"/>
+			</a>
+		</div>
+		<div class="header-menu">
+			{% include 'components/nav.twig' %}
+		</div>
+		<div class="header-blank"></div>
+		<div class="header-excelencia">
+			<img alt="{{site.title}}" src="{{ theme_uri_versioned('assets/img/maria_maeztu-blue.png') }}"/>
+		</div>
+		<div class="header-bottom">
+			<a href="{{options.link_intranet}}" target="_blank">Intranet</a>
+			{{ function('do_shortcode', '[wpml_language_selector_widget]') }}
+		</div>
+	{% endblock %}
+</header>

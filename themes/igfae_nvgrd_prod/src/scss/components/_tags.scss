@@ -1,0 +1,25 @@
+.tags {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-s);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  white-space: nowrap;
+
+  &-inner {
+    overflow-x: scroll;
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-s);
+    padding: .3rem var(--spacing-s) .3rem var(--spacing-s);
+  }
+
+  &-item {
+    transition: all 0.3s ease-out;
+  }
+
+  @include media-breakpoint-down (xs) {
+    top: 30px;
+  }
+}

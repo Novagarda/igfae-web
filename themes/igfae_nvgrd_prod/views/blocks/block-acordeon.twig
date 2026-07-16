@@ -1,0 +1,49 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% set ranid = random(9999) %}
+
+<section class="block block-acordeon{{item.borde ? ' --border'}}{{item.cor ? ' --' ~ item.cor}}{{item.ancla ? ' anclado'}}" {{item.ancla ? ' id="' ~ item.ancla|lower|replace({' ': '-', 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'ñ': 'n'} ) ~ '"' :'' }}>
+	<div class="grid grid-2 reveal{{item.borde ? ' pad' : ' pad-ceo'}}">
+		<div class="titulo left azul --font-size-m">
+			{{item.titulo|wpautop}}
+		</div>
+		<div class="right texto">
+			{{item.introducion|wpautop}}
+
+			{% if item.nota %}
+				<div class="acordeon --spacing-l-t">
+					{% for key,linha in item.nota %}
+						{# Determinar si está inactivo #}
+						{% set is_inactive = not linha.enlace.url and not linha.imaxe and not linha.texto %}
+
+						<div class="linha{% if is_inactive %} inactive{% endif %}">
+							{% if linha.enlace.url %}
+								<a href="{{linha.enlace.url}}" id="cabeza_{{key}}{{ranid}}" class="cabeza enlace" data-id="{{key}}{{ranid}}" target="{{linha.enlace.target}}">
+								{% else %}
+									<div id="cabeza_{{key}}{{ranid}}" class="cabeza" data-id="{{key}}{{ranid}}">
+									{% endif %}
+
+									<div class="num">{{ "%02d"|format(key+1) }}</div>
+									<div class="etiqueta">{{linha.titulo}}</div>
+									<div class="arrow"><img alt="arrow-right" src="{{ theme_uri_versioned('assets/img/arrow-s-b.svg') }}"/></div>
+
+									{{ linha.enlace.url ? '</a>' : '</div>' }}
+
+									<div id="corpo_{{key}}{{ranid}}" class="corpo texto --font-size-wws">
+										<div class="corpo-dentro">
+											{{linha.texto|wpautop}}
+
+											{% if linha.imaxe %}
+												<div class="imx">
+													{{ macros.imageLazy(linha.imaxe,'img-blue img-centrar', '') }}
+													<p class="pe-de-foto --font-size-wws --spacing-xs-t">{{linha.imaxe.caption}}</p>
+												</div>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					{% endif %}
+				</div>
+			</section>

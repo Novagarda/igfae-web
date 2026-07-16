@@ -1,0 +1,30 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% extends "base.twig" %}
+
+{% block content %}
+	<section class="home-wrapper pax-projects">
+
+		<div class="medioalto medioalto-60 linha-baixa flex alinha-medio pad persoaltop">
+			<h1 class="--font-size-xxxl --font-size-mb-xl azul{{post.introducion ? ' --spacing-xl-b'}}">{{post.title}}</h1>
+			{{post.introducion ? '<div class="intro azul">' ~ post.introducion ~ '</div>' :''}}
+		</div>
+
+		<div class="pad list03">
+			{% for post in posts %}
+				<a href="{{ post.link }}" class="list03-post reveal">
+					<div class=''>
+						{% if post.imaxe_destacada %}
+							{{ macros.imageLazy(post.imaxe_destacada,'img-cadrada', '@1x') }}
+						{% endif %}
+					</div>
+					<h3 class="azul --font-size-ms">
+						<span>{{ post.title }}</span>
+					</h3>
+					<div class="intro --font-size-wws">
+						{{ post.introducion|striptags }}
+					</div>
+				</a>
+			{% endfor %}
+			<div></section>
+		{% endblock %}

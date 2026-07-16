@@ -1,0 +1,69 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% extends "base.twig" %}
+
+{% block content %}
+
+	{% set anclas = false %}
+	{% for bloque in post.meta('content_flexible') %}
+		{% if bloque.ancla %}
+			{% set anclas = true %}
+		{% endif %}
+	{% endfor %}
+
+	<div class="single-wrapper">
+
+		<div class="medioalto linha-baixa flex pad alinha-abaixo --spacing-p-xxl-b{{anclas ? ' con-anclas'}}">
+			<div class='safe-space'></div>
+			<p class="codigo --font-size-xxxxl azul">{{post.codigo}}</p>
+			<h1 class="--font-size-xl azul">{{post.title}}</h1>
+		</div>
+
+		{# ANCLAS #}
+		{% include "partials/anclas.twig" with {'internas': 'si'} %}
+
+		<div class="grid grid-2der pad --spacing-l-t --spacing-xl-b">
+			<div class="left">
+				<div class="w-25 sticky">
+
+					<div class="bloque-programas pequeno">
+						<p class="titulo azul">{{ _e('Programas de investigación', 'nvgrd') }}</p>
+						{{ function('do_shortcode', '[nvgrd_programas id="'~ post.id ~ '"]') }}
+					</div>
+
+					<div class="bloque-experimentos pequeno --spacing-s-t">
+						<p class="titulo azul">{{ _e('Experimentos', 'nvgrd') }}</p>
+						{{ function('do_shortcode', '[nvgrd_experimentos id="'~ post.id ~ '"]') }}
+					</div>
+
+				</div>
+			</div>
+			<div class="right">
+				<div class="intro --font-size-s">
+					{{post.meta('introducion')}}
+				</div>
+				<div class="texto --spacing-s-t">
+					{{post.meta('contido')}}
+				</div>
+			</div>
+		</div>
+
+		{# FLEXIBLE arriba #}
+		{% include "blocks/flexible.twig" with {'arriba': 'si'} %}
+
+		{# PERSOAL #}
+		{% include "partials/bloque-persoal.twig" with {'id_programa': programas_da_area} %}
+
+		{# PUBLICACIÓNS #}
+		{% include "partials/bloque-publicacions.twig" with {'id_programa': programas_da_area} %}
+
+		{# PROXECTOS #}
+		{% include "partials/bloque-proxectos.twig" with {'id_programa': programas_da_area} %}
+
+		{# FLEXIBLE abaixo #}
+		{% include "blocks/flexible.twig" %}
+
+
+	</div>
+
+{% endblock %}

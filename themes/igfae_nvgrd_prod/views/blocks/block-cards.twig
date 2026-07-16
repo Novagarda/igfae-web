@@ -1,0 +1,27 @@
+{% import 'macros/macros.twig' as macros %}
+
+<section class="block{{ item.cards_size ? ' block-supercards' : ' block-cards' }}">
+	{% for item in item.cards_repeater %}
+		<article class="card-item --color-set-{{item.__groups_config.color_select.value}} dim reveal">
+			{% if item.card_image %}
+				<div class="card-image">{{ macros.imageLazy(item.card_image,'') }}</div>
+			{% endif %}
+			<div class="card-text">
+				{% if item.card_title %}
+					<h2>{{item.card_title}}</h2>
+				{% endif %}
+				{% if item.card_subtitle %}
+					<p>{{item.card_subtitle}}</p>
+				{% endif %}
+				{% if item.card_text %}
+					<p>{{item.card_text}}</p>
+				{% endif %}
+				{% if item.card_link %}
+					<p>
+						<a class="stretched-link" href="{{item.card_link.url}}" target="{{item.card_link.target}}">{{item.card_link.title}}</a>
+					</p>
+				{% endif %}
+			</div>
+		</article>
+	{% endfor %}
+</section>

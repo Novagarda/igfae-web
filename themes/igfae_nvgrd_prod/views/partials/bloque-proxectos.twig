@@ -1,0 +1,11 @@
+<div class="bloque-list-meritos anclado" id="proxectos">
+	<div class="reveal">
+		<div class="cabeza">
+			<h4 class="azul --font-size-m">{{_e('Proxectos', 'nvgrd')}}</h4>
+			<p>
+				<a href="{{proxectos_link}}?programm={{id_programa}}" class="btnnegro btn-xxs">{{_e('Ver todo', 'nvgrd')}}</a>
+			</p>
+		</div>
+		{{ function('do_shortcode', '[igfae_list_projects id="'~ id_programa ~ '"]') }}
+	</div>
+</div>

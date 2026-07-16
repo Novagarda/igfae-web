@@ -1,0 +1,15 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% if options.preload_check %}
+	<div style="background-color:{{options.preload_bgcolor}}" class="preload">
+		<div class="preload-inner">
+			<div class="preload-title hideStart">
+				{% if options.preload_image %}
+					<img class="" src="{{ Image(options.preload_image).src('@01x')|towebp }}" data-src="{{ Image(options.preload_image).src(size)|towebp }}" sizes="{{ Image(options.preload_image).img_sizes }}" alt="{{Image(options.preload_image).alt}}">
+				{% else %}
+					<p class="text-super">{{site.title}}</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endif %}

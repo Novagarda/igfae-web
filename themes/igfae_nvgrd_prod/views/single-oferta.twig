@@ -1,0 +1,110 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% extends "base.twig" %}
+
+{% block content %}
+
+	<div class="single-wrapper pad wrapper-oferta">
+
+		<div class="medioalto-con-marxe cabeceira flex pad{{ post.get_field('open_check') ? ' cerrada':'' }} {{ programa_codigo ? 'alinha-centro':'alinha-abaixo' }}">
+
+			<div class="datas azul">
+				<div class="linha">
+					<div class="etiqueta --font-size-wws">{{_e('Data límite', 'nvgrd')}}</div>
+					<div class="txt --font-size-ws">{{ post.data_limite|date("d/m/Y") }}</div>
+				</div>
+
+				{% if post.data_act %}
+					<div class="linha --spacing-xs-t">
+						<p class="etiqueta --font-size-wws">{{_e('Última actualización', 'nvgrd')}}</p>
+						<p class="txt --font-size-ws">{{ post.data_act|date("d/m/Y") }}</p>
+					</div>
+				{% endif %}
+			</div>
+			
+			<div>
+				{% if post.get_field('open_check') %}
+					<span class="btnazul">{{_e('Oferta pechada')}}</span>
+				{% else %}
+					<span class="btnazul">{{_e('Oferta aberta')}}</span>
+				{% endif %}
+			</div>
+
+			{% if post.get_field('programa') %}
+				<div class="programa azul --font-size-m">
+					{% for programa in post.get_field('programa') %}
+						<div>{{programa.codigo}}</div>
+					{% endfor %}
+				</div>
+			{% endif %}			
+
+			<div>
+				<a href="{{ofertas_link}}" class="azul dim">{{_e('Emprego', 'nvgrd')}} → {{ post.terms('oferta_category') | join(', ') }}</a>
+				<h1 class="--font-size-l azul">{{post.title}}</h1>
+			</div>
+		</div>
+
+
+		<div class="caixa-principal --spacing-m-t">
+
+			<div class="left">
+				<ul class="ficha-s azul">
+
+					{% if post.get_field('programa') %}
+						<li class="linha">
+								<div class="etiqueta --font-size-wws">{{_e('Programa de investigación', 'nvgrd')}}</div>
+							{% for programa in post.get_field('programa') %}
+								<div class="--font-size-ws negro --spacing-s-t">{{programa.codigo}}</div>
+								<a class="dim" href="{{programa.link}}">
+									<span class="txt --font-size-ws">{{programa}}</span>
+								</a>							
+							{% endfor %}
+						</li>
+					{% endif %}	
+
+					{% if post.meta('ficha_ficha') %}
+						{% for campo in post.meta('ficha_ficha') %}
+							<li class="linha">
+								<div class="etiqueta --font-size-wws">{{campo.etiqueta}}</div>
+								{{ campo.link ? '<a class="dim" href="' ~ campo.link ~ '" target="_blank">' : '' }}
+								<span class="txt --font-size-ws">{{campo.texto}}</span>
+								{{ campo.link ? '</a>' : '' }}
+							</li>
+						{% endfor %}
+					{% endif %}
+				</ul>
+			</div>
+
+			<div class="right --spacing-xl-b">
+
+				<div class='contido --spacing-m-b p-spaced'>{{post.meta('contido')}}</div>
+
+				<div class="acordeon">
+					{% for key,linha in post.meta('acordeon_acordeon') %}
+						<div class="linha">
+							<div id="cabeza_{{key}}" class="cabeza{{ linha.aberto == 'si' ? ' aberto':'' }}" data-id="{{key}}">
+								<div class="num">{{ "%02d"|format(key+1) }}</div>
+								<div class="etiqueta">{{linha.etiqueta}}</div>
+								<div class="arrow"><img alt="arrow-right" src="{{ theme_uri_versioned('assets/img/arrow-s-b.svg') }}"/></div>
+							</div>
+							<div id="corpo_{{key}}" class="corpo texto --font-size-wws{{ linha.aberto == 'si' ? ' ver':'' }}">
+								<div class="corpo-dentro">
+									{{linha.texto|wpautop}}
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+
+				{% include "blocks/flexible.twig" %}
+
+			</div>
+
+		</div>
+
+	</div>
+
+	{% include "blocks/block-gallery.twig" %}
+
+
+{% endblock %}

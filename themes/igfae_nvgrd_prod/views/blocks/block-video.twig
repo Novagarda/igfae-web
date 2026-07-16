@@ -1,0 +1,25 @@
+{% import 'macros/macros.twig' as macros %}
+
+<section class="block block-video{{item.borde ? ' --border'}}{{item.cor ? ' --' ~ item.cor}}{{item.ancla ? ' anclado'}}" {{item.ancla ? ' id="' ~ item.ancla|lower|replace({' ': '-', 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'ñ': 'n'} ) ~ '"' :'' }}>
+	<div class="reveal">
+		{% if item.titulo or item.introducion %}
+			<div class="grid grid-2 pad">
+				<div class="titulo azul --font-size-m">
+					{{item.titulo}}
+				</div>
+				<div class="texto --font-size-wws">
+					{{item.introducion|wpautop}}
+				</div>
+			</div>
+		{% endif %}
+
+		{% if item.video %}
+			<div class="video-item">
+				<div class='video-item-inner {{item.ancho ? ' --wide' : ' --narrow'}}'>
+					{{ macros.videoPlyr(item.video) }}
+					<p class="video-footer --font-size-wws">{{item.pe_do_video}}</p>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+</section>

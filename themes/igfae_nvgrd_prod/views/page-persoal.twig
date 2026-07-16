@@ -1,0 +1,27 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% extends "base.twig" %}
+
+{% block content %}
+	<section class="home-wrapper pax-persoal">
+
+		<div class="medioalto medioalto-40 flex alinha-medio pad persoaltop{{ post.imaxe_destacada ? '':' linha-baixa'}}">
+			<h1 class="--font-size-xxxl --font-size-mb-xl azul">{{post.title}}</h1>
+		</div>
+		<div class="persoaltop">
+			<button id="btn-filtros" type="button" class="btnnegro">{{ __('Filtro', 'nvgrd') }}</button>
+			{% if post.introducion %}
+				<div class="intro azul{{ anclas ? ' con-anclas':''}}">{{post.introducion}}</div>
+			{% endif %}
+		</div>
+
+		{% if post.imaxe_destacada %}
+			<div class="medioalto imx">
+				{{ macros.imageLazy(post.imaxe_destacada,'img-blue img-centrar', '') }}
+			</div>
+		{% endif %}
+
+		{{ function('do_shortcode', '[igfae_personal]') }}
+
+	</section>
+{% endblock %}

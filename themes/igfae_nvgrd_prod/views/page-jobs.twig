@@ -1,0 +1,70 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% extends "base.twig" %}
+
+{% block content %}
+	<section class="home-wrapper pax-projects">
+		<div class="medioalto linha-baixa flex alinha-medio pad persoaltop">
+			<h1 class="--font-size-xxxl --font-size-mb-xl azul">{{post.title}}</h1>
+			<div class="intro azul">{{post.meta('introducion')}}</div>
+		</div>
+
+		{% if post.imaxe_destacada %}
+			<div class="medioalto imx">
+				{{ macros.imageLazy(post.imaxe_destacada,'img-blue img-centrar', '') }}
+			</div>
+		{% endif %}
+
+		<div>
+			{% include "blocks/flexible.twig" with {'arriba': 'si'} %}
+		</div>
+
+		<h2 class="cabeceira-divisoria --font-size-m -spacing-l-t --spacing-s-b">
+			<span>{{_e('Oportunidades abertas', 'nvgrd')}}</span>
+		</h2>
+		
+		<div class="pad --spacing-xxl-b">
+
+			{% for category in categorias %}
+			
+				<h2 class="azul --font-size-m --spacing-xl-t --spacing-m-b ">{{ category.name }}</h2>
+				
+				{% if category.posts %}
+
+					<div class="grid grid-3 block-alumni azul">
+					{% for post in category.posts %}
+								{% include "partials/art-oferta-item.twig" %}
+					{% endfor %}
+					</div>
+				{% else %}
+					<p>{{ __('Non hai posicións neste momento', 'theme') }}</p>
+				{% endif %}
+			{% endfor %}
+		
+		</div>
+
+		<h2 class="cabeceira-divisoria --font-size-m -spacing-l-t --spacing-s-b">
+			<span>{{_e('Oportunidades pechadas', 'nvgrd')}}</span>
+		</h2>
+
+		<div class="--spacing-xxl-b">
+
+			{% for cat_posts_pechados in categorias_posts_pechados %}
+				{% if cat_posts_pechados.posts %}
+
+					<h2 class="azul --font-size-m --spacing-xl-t --spacing-m-b pad">{{ cat_posts_pechados.name }}</h2>
+
+					<div class="block-alumni-list azul">
+					{% for post in cat_posts_pechados.posts %}
+						{% include "partials/art-oferta-item-listed.twig" %}
+					{% endfor %}
+					</div>
+				{% endif %}
+			{% endfor %}
+		
+		</div>
+
+		{% include "blocks/flexible.twig" %}
+
+	</section>
+{% endblock %}

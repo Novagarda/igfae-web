@@ -1,0 +1,5 @@
+<section class="block block-boton{{item.ancla ? ' anclado'}}{{item.borde ? ' --border'}}{{item.cor ? ' --' ~ item.cor}}" {{item.ancla ? 'id="' ~ item.ancla|lower|replace({' ': '-', 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'ñ': 'n'} ) ~ '"' :'' }}>
+	<a href="{{item.link.url}}" class="btnazul btn-xl reveal" target="{{item.link.target}}" data-arrow="{{ theme_uri_versioned('assets/img/arrow-large.svg') }}">
+		{{item.titulo}}
+	</a>
+</section>

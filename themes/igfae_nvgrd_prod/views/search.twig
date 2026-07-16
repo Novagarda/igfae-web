@@ -1,0 +1,37 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% extends "base.twig" %}
+
+{% block content %}
+
+	<div class="buscar">
+		<div class="dentro azul">
+			{{_e('Resultados para:')}}
+			{{ function('get_search_form') }}
+		</div>
+	</div>
+	
+	{% for post in posts_timber %}
+		{% include ['tease-'~post.post_type~'.twig', 'tease.twig'] %}
+	{% endfor %}
+	
+	<nav id="igfae-pagination" class="reveal">
+
+		<ul class="pagination">
+			{% for page in posts.pagination.pages %}
+				<li>
+					{% if page.link %}
+						<a href="{{ page.link }}" class="{{ page.class }}">{{ page.title }}</a>
+					{% else %}
+						<span class="{{ page.class }}">{{ page.title }}</span>
+					{% endif %}
+				</li>
+			{% endfor %}
+		</ul>
+
+	</nav>
+
+
+
+
+{% endblock %}

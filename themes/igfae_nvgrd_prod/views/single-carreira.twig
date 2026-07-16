@@ -1,0 +1,82 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% extends "base.twig" %}
+
+{% block content %}
+
+	<div class="single-wrapper">
+
+		<div class="linha-baixa">
+
+			<div class="medioalto medioalto-min flex alinha-abaixo pad">
+				{{ programa_codigo ? '<div class="titulo-aguado">' ~ programa_codigo ~ '</div>' : '' }}
+				<h1 class="--font-size-wwl --font-size-mb-xl oito_decimos">{{post.title}}</h1>
+			</div>
+
+			<div class="pad baixotitulo">
+				<div class="intro --font-size-s">
+					{{post.introducion}}
+				</div>
+				<div class="espacio"></div>
+				{% if post.imaxe_destacada %}
+					{{ macros.imageLazy(post.imaxe_destacada,'img-cadrada', '') }}
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="caixa-principal pad reveal">
+
+			<div class="left">
+				<ul class="ficha-s">
+
+					{% if post.meta('ficha') %}
+						{% for campo in post.meta('ficha') %}
+							<li class="linha">
+								<div class="etiqueta --font-size-wws">{{campo.etiqueta}}</div>
+								{{ campo.link ? '<a class="dim" href="' ~ campo.link ~ '" target="_blank">' : '' }}
+								<p class="txt --font-size-ws">{{campo.texto}}</p>
+								{{ campo.link ? '</a>' : '' }}
+							</li>
+						{% endfor %}
+					{% endif %}
+				</ul>
+			</div>
+
+			<div class="right --spacing-xl-b">
+
+				<div class="texto --spacing-xxl-b">
+					{{post.contido|wpautop}}
+				</div>
+
+				<div class="acordeon">
+					{% for key,linha in post.meta('acordeon') %}
+						<div class="linha">
+							<div id="cabeza_{{key}}" class="cabeza" data-id="{{key}}">
+								<div class="num">{{ "%02d"|format(key+1) }}</div>
+								<div class="etiqueta">{{linha.etiqueta}}</div>
+								<div class="arrow"><img alt="arrow-right" src="{{ theme_uri_versioned('assets/img/arrow-s-b.svg') }}"/></div>
+							</div>
+							<div id="corpo_{{key}}" class="corpo texto --font-size-wws">
+								<div class="corpo-dentro">
+									{{linha.texto|wpautop}}
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+
+			</div>
+
+		</div>
+
+		{% if post.galeria %}
+			{% include "blocks/block-gallery.twig" %}
+		{% endif %}
+
+		<div class="bloques-flexibles">
+			{% include "blocks/flexible.twig" %}
+		</div>
+
+	</div>
+
+{% endblock %}

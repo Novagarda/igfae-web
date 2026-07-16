@@ -1,0 +1,97 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% extends "base.twig" %}
+
+{% block content %}
+
+	{% set anclas = false %}
+	{% for bloque in post.meta('content_flexible') %}
+		{% if bloque.ancla %}
+			{% set anclas = true %}
+		{% endif %}
+	{% endfor %}
+
+	<div class="single-wrapper ">
+
+		<div class="single-programa-header medioalto-min linha-baixa flex pad alinha-abaixo --spacing-p-xl-b{{anclas ? ' con-anclas'}}">
+			<div class='safe-space'></div>
+			<p class="codigo --font-size-xxxxl --font-size-mb-xxl azul">{{post.codigo}}</p>
+			<h1 class="--font-size-xl azul --spacing-xl-b">{{post.title}}</h1>
+		</div>
+
+		{# ANCLAS #}
+		{% include "partials/anclas.twig" with {'internas': 'si'} %}
+
+		<div class="grid grid-2der pad --spacing-l-t --spacing-xl-b">
+			<div class="left">
+				<div class="w-25 sticky">
+
+					<div class="bloque-programas pequeno">
+						<p class="titulo azul">{{ _e('Área de investigación', 'nvgrd') }}</p>
+						<div class="programa-items">
+							<div>
+								<p>{{area_codigo}}</p>
+								<a href="{{area_link}}" class="azul carga-loading">{{area_titulo}}</a>
+							</div>
+						</div>
+					</div>
+
+					{% set shortcode_result = function('do_shortcode', '[nvgrd_experimentos_por_programa id="'~ post.id ~ '"]') %}
+
+					{% if shortcode_result|trim is not empty %}
+						<div class="bloque-experimentos pequeno --spacing-s-t">
+							<p class="titulo azul">{{ _e('Experimentos', 'nvgrd') }}</p>
+							{{ shortcode_result }}
+						</div>
+					{% endif %}
+
+				</div>
+			</div>
+
+			<div class="right">
+				<div class="intro --font-size-s">
+					{{post.meta('introducion')}}
+				</div>
+				<div class="texto --spacing-s-t">
+					{{post.meta('contido')}}
+				</div>
+			</div>
+		</div>
+
+		{# FLEXIBLE arriba #}
+		{% include "blocks/flexible.twig" with {'arriba': 'si'} %}
+
+		{# PERSOAL #}
+		{% include "partials/bloque-persoal.twig" with {'id_programa': post.id_do_programa} %}
+
+		{# PUBLICACIÓNS #}
+		{% include "partials/bloque-publicacions.twig" with {'id_programa': post.id_do_programa} %}
+
+		{# PROXECTOS #}
+		{% include "partials/bloque-proxectos.twig" with {'id_programa': post.id_do_programa} %}
+
+		{# OFERTAS #}
+		{% if jobs_abertos %}
+			<div class="bloque-list-meritos linha-alta anclado" id="ofertas">
+				<div class="reveal">
+					<div class="cabeza">
+						<h4 class="azul --font-size-m">{{_e('Ofertas de traballo', 'nvgrd')}}</h4>
+						<p>
+							<a href="{{emprego_link}}" class="btnnegro btn-xxs">{{_e('Ver todo', 'nvgrd')}}</a>
+						</p>
+					</div>
+					<div class="pad grid grid-3 block-alumni azul">
+						{% for post in jobs_abertos %}
+							{% include "partials/art-oferta-item.twig" %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		{% endif %}
+
+		{# FLEXIBLE abaixo #}
+		{% include "blocks/flexible.twig" %}
+
+	</div>
+
+{% endblock %}

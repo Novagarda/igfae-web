@@ -1,0 +1,79 @@
+:root {
+    --black: #111111;
+    --gray: #999999;
+    --gray-light: #F4f4f4;
+    --gray-dark: #222;
+    --white: #f5f5f5;
+    --red: red;
+    --blue: #1F32FF;
+    --blue-light: #d2d6ff;
+    --blue-gray: #bbbfe5;
+    --blue-dark: #000023;
+    --blue-inverted: #e0cd00;
+    --blue-inverted-chrome: #ead700;
+
+    --primary: var(--black);
+    --secondary: var(--gray-light);
+    --accent: var(--black);
+
+    --plyr-color-main: #1F32FF;
+}
+
+.--color-set {
+    &-green {
+        background-color: lightgreen;
+    }
+
+    &-orange {
+        background-color: lightcoral;
+    }
+}
+
+.corpoazul {
+
+    .brandtop img,
+    .acordeon .cabeza .arrow img {
+        filter: brightness(0) saturate(100%) invert(100%) sepia(1%) saturate(2%) hue-rotate(312deg) brightness(101%) contrast(105%);
+    }
+
+    .wrapper {
+        background-color: var(--blue);
+        color: var(--white);
+        padding-top: var(--spacing-xxxxl);
+    }
+
+    .single-wrapper {
+        background-color: var(--blue);
+        color: var(--white);
+    }
+
+    .azul {
+        color: var(--white);
+    }
+
+    .btnazul,
+    .btnnegro {
+        background-color: var(--white);
+        color: var(--blue-dark);
+    }
+
+    .linha-baixa,
+    .ficha-s .linha,
+    .acordeon .linha {
+        border-color: var(--white);
+    }
+
+    .footer {
+        margin-top: 0;
+    }
+
+    @include media-breakpoint-down (xs) {
+        .wrapper {
+            padding-top: var(--spacing-xl);
+
+            .--spacing-xxl-t {
+                margin-top: var(--spacing-l);
+            }
+        }
+    }
+}

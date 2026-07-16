@@ -1,0 +1,36 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% extends "base.twig" %}
+
+{% block content %}
+
+	<div class="single-wrapper">
+
+		<div class="medioalto flex pad alinha-abaixo">
+			<p class="data">{{post.date('d.m.Y')}}</p>
+			<h1 class="--font-size-xl --font-size-mb-l azul tres_cuartos --spacing-l-b">{{post.title}}</h1>
+		</div>
+
+		{% if post.thumbnail %}
+			<div class="single-image imx">
+				{{ macros.imageLazy(post.thumbnail,'img-apaisadisima', '') }}
+
+				{% if Image(post).post_content %}
+					<div class='image-caption'>{{ Image(post).post_content }}</div>
+				{% endif %}
+			</div>
+		{% endif %}
+
+		{% if post.content %}
+			<section class="single-content texto">
+				{{post.content|wpautop}}
+			</section>
+		{% endif %}
+
+		{% include "blocks/block-related.twig" %}
+
+		{% include "blocks/flexible.twig" %}
+
+	</div>
+
+{% endblock %}

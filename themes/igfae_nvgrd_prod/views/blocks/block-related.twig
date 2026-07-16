@@ -1,0 +1,33 @@
+{% import 'macros/macros.twig' as macros %}
+
+<section class="block block-related{{item.borde ? ' --border'}}{{item.cor ? ' --' ~ item.cor}}{{item.ancla ? ' anclado'}}" {{item.ancla ? ' id="' ~ item.ancla|lower|replace({' ': '-', 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'ñ': 'n'} ) ~ '"' :'' }}>
+	<div class="reveal">
+		{% if item.related_news %}
+			<div class="marquee" data-length="{{item.related_news|length}}">
+				<div class="cats-pasador marquee-wrapper">
+					<div class="marquee-item">
+						<div class="marquee-link">
+							{% for cat in item.related_news %}
+								<span class="btn-xxl">{{cat}}</span>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+
+		<div class="block-titulo pad --spacing-m-b">
+			<p class="--font-size-m">{{_e('Novas', 'nvgrd')}}</p>
+			<div>
+				<a href="{{page_news_permalink}}" class="btnnegro --font-size-xs">{{_e('Ver todo', 'nvgrd')}}</a>
+			</div>
+		</div>
+
+		<div class="grid grid-3 pad">
+			{% for item in relacionadas %}
+				{% include "partials/art-novas.twig" %}
+			{% endfor %}
+		</div>
+	</div>
+
+</section>

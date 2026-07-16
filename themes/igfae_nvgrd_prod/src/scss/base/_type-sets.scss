@@ -1,0 +1,138 @@
+:root {
+  --font-serif: 'Times New Roman', SSFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-sans: 'roobert', Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-base: var(--font-sans);
+  --font-weight-base: 400;
+  --line-height-base: 1.2;
+  --line-height-headline: 1.1;
+  --font-size-root: 100%;
+
+  --font-size-xxxxxl: #{(270px / 16px) * 1rem};
+  --font-size-xxxxl: #{(135px / 16px) * 1rem};
+  //  --font-size-xxxl: #{(89.76px / 16px) * 1rem};
+  --font-size-xxxl: #{(80.76px / 16px) * 1rem};
+  --font-size-wwl: #{(75px / 16px) * 1rem};
+  --font-size-xxl: #{(67.34px / 16px) * 1rem};
+  --font-size-xl: #{(45px / 16px) * 1rem};
+  --font-size-l: #{(37.90px / 16px) * 1rem};
+  --font-size-lm: #{(35.5px / 16px) * 1rem};
+  --font-size-m: #{(28.43px / 16px) * 1rem};
+  --font-size-ms: #{(24px / 16px) * 1rem};
+  --font-size-s: #{(20.33px / 16px) * 1rem};
+  --font-size-ws: #{(19px / 16px) * 1rem};
+  --font-size-xs: #{(16.00px / 16px) * 1rem};
+  --font-size-wws: #{(14px / 16px) * 1rem};
+  --font-size-xxs: #{(12.00px / 16px) * 1rem};
+  --font-size-xxxs: #{(9.00px / 16px) * 1rem};
+
+  --line-height-sans: 1;
+  --letter-spacing: 0;
+
+  --zoom: 1;
+  --min-font-size: 15px;
+  --max-font-size: 25px;
+  --font-size: clamp(var(--min-font-size), 1.11111vw * var(--zoom), var(--max-font-size));
+  font-size: var(--font-size);
+
+  @include media-breakpoint-down(sm) {
+    font-size: 16px;
+  }
+}
+
+.--font-size-xxxxxl {
+  font-size: var(--font-size-xxxxxl)
+}
+
+.--font-size-xxxxl {
+  font-size: var(--font-size-xxxxl)
+}
+
+.--font-size-xxxl {
+  font-size: var(--font-size-xxxl)
+}
+
+.--font-size-wwl {
+  font-size: var(--font-size-wwl)
+}
+
+.--font-size-xxl {
+  font-size: var(--font-size-xxl)
+}
+
+.--font-size-xl {
+  font-size: var(--font-size-xl)
+}
+
+.--font-size-l {
+  font-size: var(--font-size-l)
+}
+
+.--font-size-lm {
+  font-size: var(--font-size-lm)
+}
+
+.--font-size-m {
+  font-size: var(--font-size-m)
+}
+
+.--font-size-ms {
+  font-size: var(--font-size-ms)
+}
+
+.--font-size-s {
+  font-size: var(--font-size-s)
+}
+
+.--font-size-ws {
+  font-size: var(--font-size-ws)
+}
+
+.--font-size-xs {
+  font-size: var(--font-size-xs)
+}
+
+.--font-size-wws {
+  font-size: var(--font-size-wws)
+}
+
+.--font-size-xxs {
+  font-size: var(--font-size-xxs)
+}
+
+.--font-size-xxxs {
+  font-size: var(--font-size-xxxs)
+}
+
+@include media-breakpoint-down (xs) {
+  .--font-size-mb-xxxs {
+    font-size: var(--font-size-xxxs)
+  }
+
+  .--font-size-mb-xxs {
+    font-size: var(--font-size-xxs)
+  }
+
+  .--font-size-mb-xs {
+    font-size: var(--font-size-xs)
+  }
+
+  .--font-size-mb-m {
+    font-size: var(--font-size-m)
+  }
+
+  .--font-size-mb-l {
+    font-size: var(--font-size-l)
+  }
+
+  .--font-size-mb-xl {
+    font-size: var(--font-size-xl)
+  }
+
+  .--font-size-mb-xxl {
+    font-size: var(--font-size-xxl)
+  }
+
+  .--font-size-mb-xxxl {
+    font-size: var(--font-size-xxxl)
+  }
+}

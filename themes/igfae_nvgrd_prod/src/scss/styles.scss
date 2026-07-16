@@ -1,0 +1,82 @@
+@import "~normalize.css";
+// ---------------------------------
+// MASTER STYLESHEET INDEX
+// ---------------------------------
+
+//--------------------
+// UTILITIES
+//--------------------
+
+@import "utils/variables";
+@import "utils/breakpoints";
+@import "utils/animations";
+@import "utils/mixins";
+@import "utils/effects";
+@import "utils/utils";
+@import "utils/spacing";
+@import "utils/colors";
+@import "utils/hacks";
+
+//--------------------
+// BASE MODULES
+// partials with global scope
+//--------------------
+
+@import 'base/normalize';
+@import "base/fonts";
+@import "base/type-sets";
+@import "base/base";
+@import "base/reboot";
+@import "base/screenreader";
+@import "base/focus";
+@import "base/layout";
+@import "base/loader";
+@import "base/grid";
+
+//--------------------
+// COMPONENTS
+// partials with local scope to a component
+//--------------------
+
+@import "components/nav";
+@import "components/header";
+@import "components/loading";
+@import "components/logo";
+@import "components/footer";
+@import "components/news";
+@import "components/aside";
+@import "components/works";
+@import "components/preload";
+@import "components/cookies";
+@import "components/tags";
+@import "components/form";
+@import "components/emerxentes";
+
+//--------------------
+// BLOCKS
+// partials with local scope to a BLOCK
+//--------------------
+@import "blocks/blocks";
+@import "blocks/cards";
+@import "blocks/title";
+@import "blocks/video";
+
+//--------------------
+// LAYOUTS
+// partials with local scope to a layout
+//--------------------
+
+@import "layouts/home";
+@import "layouts/actividad";
+@import "layouts/carreira";
+@import "layouts/events";
+@import "layouts/experimento";
+@import "layouts/single";
+@import "layouts/page";
+@import "layouts/persoa";
+@import "layouts/programas";
+@import "layouts/single-programa";
+@import "layouts/publication";
+@import "layouts/search";
+@import "layouts/job";
+@import "layouts/images";

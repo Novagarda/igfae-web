@@ -1,0 +1,71 @@
+.page {
+    .introducion {
+        padding-top: 0;
+    }
+}
+
+@include media-breakpoint-down (xs) {
+
+    .page-template-default,
+    .pax-publicacions,
+    .pax-persoal,
+    .pax-projects {
+        .medioalto {
+            h1 {
+                padding: var(--spacing-l) 0 var(--spacing-xl) 0;
+                text-align: center;
+                width: 100%;
+            }
+            &.con-anclas-e-filtro{
+                padding-bottom: var(--spacing-wl);
+            }
+        }
+    }
+
+    .page-template-template-carreira,
+    .page-template-template-news {
+        .home-wrapper {
+            padding-top: var(--spacing-s);
+        }
+    }
+
+    .page-template-template-news,
+    .page-template-template-activities,
+    .page-template-template-experimentos,
+    .page-template-template-jobs {
+        .home-wrapper {
+            padding-top: var(--spacing-l);
+        }
+    }
+
+    .single-post {
+        .single-wrapper {
+            padding-top: var(--spacing-l);
+
+            .single-content {
+                margin-left: 0vw;
+                width: 100vw;
+
+                iframe {
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+
+}
+
+.page-template-template-activities {
+    .footer {
+        border-top: 0;
+    }
+}
+
+.single-post {
+    .single-wrapper {
+
+        .medioalto.imx .image img {
+            object-position: center;
+        }
+    }
+}

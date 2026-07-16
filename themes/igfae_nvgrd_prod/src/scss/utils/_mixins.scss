@@ -1,0 +1,320 @@
+@mixin dim-items($perc: .4) {
+  @media (hover: hover) {
+    &:hover>* {
+      opacity: $perc !important;
+    }
+
+    &>* {
+      display: block;
+      transition: opacity 0.2s ease-out 0.02s;
+
+      &:hover {
+        opacity: 1 !important;
+      }
+    }
+  }
+}
+
+@mixin dim($perc: .4) {
+  @media (hover: hover) {
+    transition: opacity .2s ease-out 0.02s;
+
+    &:hover {
+      opacity: $perc;
+      text-decoration: none;
+    }
+  }
+}
+
+.dim {
+  @include dim;
+}
+.dim-items {
+  @include dim-items;
+}
+
+@function map-get-or-key($map, $key) {
+	@if map-has-key($map, $key) or map-has-key($map, -$key) {
+		@if $key != 'auto' and type-of($key) == 'number' and $key < 0 {
+			@return 0 - map-get($map, -$key);
+		} @else {
+			@return map-get($map, $key);
+		}
+	} @else if type-of($key) == 'string' {
+		@return unquote($key);
+	} @else {
+		@return $key;
+	}
+}
+
+@function bsize($key) {
+	@return map-get-or-key($spacers, $key);
+}
+
+
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+$min_width: 576px;
+$max_width: 1800px;
+$min_font: 16px;
+$max_font: 24px;
+
+@mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
+  $u1: unit($min-vw);
+  $u2: unit($max-vw);
+  $u3: unit($min-font-size);
+  $u4: unit($max-font-size);
+
+  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+    & {
+
+      font-size: $min-font-size !important;
+      @media screen and (min-width: $min-vw) {
+        font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)})) !important;;
+      }
+
+      @media screen and (min-width: $max-vw) {
+        font-size: $max-font-size !important;
+      }
+    }
+  }
+}
+
+@mixin isFlex($align: center, $justify: center, $direction: row, $wrap: wrap) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  flex-direction: $direction;
+  flex-wrap: $wrap;
+}
+
+@mixin bgImage($url, $repeat: no-repeat, $position: center, $size: initial) {
+  background-image: url($url);
+  background-repeat: $repeat;
+  background-position: $position;
+  background-size: $size;
+}
+
+// Text antialiasing
+// --------------------------------------------------------------------------
+@mixin antialiasing {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin no-antialiasing {
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+}
+
+@mixin item-shadow {
+  -webkit-box-shadow: 5px 5px 24px -5px rgba(0,0,0,0.31);
+  -moz-box-shadow: 5px 5px 24px -5px rgba(0,0,0,0.31);
+  box-shadow: 5px 5px 24px -5px rgba(0,0,0,0.31);
+}
+
+.item-shadow {
+  @include item-shadow;
+}
+
+//--------------------
+// SCSS MIXINS
+//--------------------
+
+@mixin mq($name) {
+    $min: breakpoint-min($name, $breakpoints);
+    @if $min {
+        @media (min-width: $min) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+@mixin mq-down($name) {
+    $min: breakpoint-min($name, $breakpoints);
+    @if $min {
+        @media (max-width: ($min - 1px)) {
+            @content;
+        }
+    } @else {
+        @content;
+    }
+}
+
+@mixin hover-focus {
+    &:hover,
+    &:focus {
+        @content;
+    }
+}
+
+@mixin sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@mixin sr-only-focusable {
+    &:active,
+    &:focus {
+        position: static;
+        width: auto;
+        height: auto;
+        overflow: visible;
+        clip: auto;
+        white-space: normal;
+    }
+}
+
+@mixin hyphenate() {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+@mixin coverall() {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+@mixin scrollable() {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@mixin button-reset() {
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    -webkit-appearance: none;
+}
+
+@mixin blend-mode-dif {
+  color: $white;
+  mix-blend-mode: difference;
+}
+
+@mixin flex-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+@mixin grid-layout {
+  display: grid;
+  grid-template-columns: repeat(12,1fr);
+  grid-gap: $spacing-m;
+}
+
+@mixin line-bottom($bg-color: $black) {
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: $spacing-xs;
+    height: 1px;
+    width: calc(100% - #{$spacing-xs} * 2);
+    background-color: $bg-color;
+  }
+}
+
+@mixin basic-a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover{
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+@keyframes --marquee-100 {
+  0% { transform: translateX(0) }
+  100% { transform: translateX(-100%) }
+}
+
+@keyframes --marquee100 {
+  0% { transform: translateX(-100%) }
+  100% { transform: translateX(0%) }
+}
+
+@keyframes --marquee-50 {
+  0% { transform: translate3D(0,0,0) }
+  100% { transform: translate3D(-50%,0,0) }
+}
+
+@keyframes --marquee50 {
+  0% { transform: translate3D(-50%,0,0) }
+  100% { transform: translate3D(0,0,0) }
+}
+
+@mixin basic-marquee() {
+  --space: .30em;
+  --animation: 8s;
+
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  width: auto;
+  padding-right: var(--space);
+
+  &:not(.--invert) {
+    animation: --marquee-100 var(--animation) infinite linear;
+  }
+
+  &.--invert {
+    animation: --marquee100 var(--animation) infinite linear;
+  }
+
+  .aux,
+  &[data-text]:after {
+    position: absolute;
+    top:0;
+    margin-left: var(--space);
+  }
+
+  &[data-text]:after {
+    content: attr(data-text);
+  }
+}
+
+@mixin marquee() {
+  --space: 4vw;
+  --animation: 8s;
+
+  font-size: 15vw;
+  white-space: nowrap;
+  width: auto;
+  animation: --marquee-50 var(--animation) infinite linear;
+  padding-left: var(--space);
+
+  &:after {
+    content: attr(data-text);
+    padding-left: var(--space);
+  }
+}
+.basic-marquee {
+  @include basic-marquee();
+}
+
+@mixin transition($what, $time) {
+  -webkit-transition: $what $time ease-in-out;
+  transition: $what $time ease-in-out;
+}
+
+

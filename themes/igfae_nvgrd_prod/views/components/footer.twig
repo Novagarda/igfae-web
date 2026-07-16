@@ -1,0 +1,50 @@
+{% import 'macros/macros.twig' as macros %}
+
+<footer class="footer {{post.footer_image ? '--negative'}}">
+
+	<div class="logos">
+		{% for item in options.footerlogos %}
+			{{ macros.imageLazyFull(item,'','full') }}
+		{% endfor %}
+	</div>
+
+	<div class="ver-mobil logo-circulos pad">
+		<img src="{{ theme_uri_versioned('assets/img/igfae-logo-circulos.svg') }}"/>
+	</div>
+
+	<div class="links">
+		<div class="footer-left ver-desktop">
+			{{ macros.imageLazyFull(options.logo_footer_grande,'','full') }}
+		</div>
+
+		<div class="footer-right">
+
+			<ul class="footer-navtop">
+				{% for nav in footertop.get_items %}
+					<li class="nav-item">
+						<a href={{nav.link}} class="nav-link dim {{nav.class}}" target="{{nav.target}}">{{nav.title}}</a>
+					</li>
+				{% endfor %}
+			</ul>
+
+			<div class="ver-mobil logo-igfae-25 pad">
+				{{ macros.imageLazyFull(options.logo_footer_grande,'','full') }}
+			</div>
+
+		</div>
+	</div>
+
+	<div class="bottom-bar">
+		<ul class="footer-nav">
+			{% for nav in footer.get_items %}
+				<li class="nav-item">
+					<a href={{nav.link}} class="nav-link dim {{nav.class}}" target="{{nav.target}}">{{nav.title}}</a>
+				</li>
+			{% endfor %}
+		</ul>
+		<div class="footer-credit">
+			<span>Web: <a href="https://novagarda.gal" target="_blank" rel="noopener noreferrer" class="dim">Novagarda</a></span>
+		</div>
+	</div>
+
+</footer>

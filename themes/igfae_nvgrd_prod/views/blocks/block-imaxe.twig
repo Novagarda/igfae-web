@@ -1,0 +1,22 @@
+{% import 'macros/macros.twig' as macros %}
+
+<section class="block block-imaxe{{item.borde ? ' --border'}}{{item.cor ? ' --' ~ item.cor}}{{item.ancla ? ' anclado'}}" {{item.ancla ? ' id="' ~ item.ancla|lower|replace({' ': '-', 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'ñ': 'n'} ) ~ '"' :'' }}>
+	<div class="reveal">
+		{% if item.titulo or item.introducion %}
+			<div class="grid grid-2 pad{{item.borde ? ' pad' : ' pad-ceo'}}">
+				<div class="titulo azul --font-size-m">
+					{{item.titulo}}
+				</div>
+				<div class="texto --font-size-wws">
+					{{item.meta('introducion')}}
+				</div>
+			</div>
+		{% endif %}
+		<div class="imx{{item.ancho ? '' : ' pad-l pad-r'}}">
+			{{ macros.imageLazy(item.imaxe,'img-blue img-centrar', '') }}
+			{% if item.imaxe.caption %}
+				<p class="--font-size-wws --spacing-xs-t{{item.ancho ? ' pad-l' : ''}}">{{item.imaxe.caption}}</p>
+			{% endif %}
+		</div>
+	</div>
+</section>

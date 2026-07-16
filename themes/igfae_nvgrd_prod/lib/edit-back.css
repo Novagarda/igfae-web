@@ -1,0 +1,4 @@
+/* Modifica el ancho de la columna "Imagen destacada" */
+#wpbody-content .column-featured_image {
+    width: 10%;
+}

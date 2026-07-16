@@ -1,0 +1,94 @@
+{% import 'macros/macros.twig' as macros %}
+
+<section class="block block-text-3 {{ item.filter_check ? ' --has-filter' }} {{item.borde ? ' --border'}}{{item.cor ? ' --' ~ item.cor}}{{item.ancla ? ' anclado'}}" {{item.ancla ? ' id="' ~ item.ancla|lower|replace({' ': '-', 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'ñ': 'n'} ) ~ '"' :'' }}>
+	<div class="reveal">
+		<div class="grid grid-2 pad{{item.borde ? ' pad' : ' pad-ceo'}}">
+			<div class="left azul --font-size-m">
+
+				{% if item.title %}
+					{{ '<' ~ item.elemento ~ ' class="titulo">' }}
+					{{item.title}}
+					{{ "</" ~ item.elemento ~ ">" }}
+				{% endif %}
+
+			</div>
+			<div class="right texto">
+				{{item.introducion|wpautop}}
+			</div>
+		</div>
+
+		<div class="grid grid-3 pad cols">
+			<div class="col">
+
+				<h4 class="azul --font-size-s --spacing-xl-b pad-t">
+					{{item.columna_1.title}}
+				</h4>
+
+				{% if item.columna_1.imaxe %}
+					<div class="imx --spacing-xl-b">
+						{{ macros.imageLazy(item.columna_1.imaxe,'img-blue img-centrar', '') }}
+						{% set col_image = Image(item.columna_1.imaxe) %}
+						{% if col_image.caption %}
+							<p class="pe-de-foto --font-size-wws --spacing-xs-t">{{col_image.caption}}</p>
+						{% endif %}
+					</div>
+				{% endif %}
+
+				<div class="texto">
+					{{item.columna_1.texto}}
+				</div>
+
+			</div>
+
+			<div class="col">
+
+				<h4 class="azul --font-size-s --spacing-xl-b --spacing-s-t">
+					{{item.columna_2.title}}
+				</h4>
+
+				{% if item.columna_2.imaxe %}
+					<div class="imx --spacing-xl-b">
+						{{ macros.imageLazy(item.columna_2.imaxe,'img-blue img-centrar', '') }}
+						{% set col_image = Image(item.columna_2.imaxe) %}
+						{% if col_image.caption %}
+							<p class="pe-de-foto --font-size-wws --spacing-xs-t">{{col_image.caption}}</p>
+						{% endif %}
+					</div>
+				{% endif %}
+
+				<div class="texto">
+					{{item.columna_2.texto}}
+				</div>
+
+			</div>
+
+			<div class="col">
+
+				<h4 class="azul --font-size-s --spacing-xl-b --spacing-s-t">
+					{{item.columna_3.title}}
+				</h4>
+
+				{% if item.columna_3.imaxe %}
+					<div class="imx --spacing-xl-b">
+						{{ macros.imageLazy(item.columna_3.imaxe,'img-blue img-centrar', '') }}
+						{% set col_image = Image(item.columna_3.imaxe) %}
+						<p class="pe-de-foto --font-size-wws --spacing-xs-t">{{col_image.caption}}</p>
+					</div>
+				{% endif %}
+
+				<div class="texto">
+					{{item.columna_3.texto}}
+				</div>
+
+			</div>
+		</div>
+
+		{% if item.imaxe_ancho_completo %}
+			{{item.sen_filtro}}
+			<div class="imx ancho-completo">
+				{{ macros.imageLazy(item.imaxe,'img-blue img-centrar', '') }}
+				<p class="pe-de-foto --font-size-wws --spacing-xs-t{{item.ancho ? ' pad-l' : ''}}">{{item.imaxe.caption}}</p>
+			</div>
+		{% endif %}
+	</div>
+</section>

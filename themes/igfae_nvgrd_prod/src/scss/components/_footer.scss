@@ -1,0 +1,129 @@
+.footer {
+    padding-top: var(--spacing-xxxl);
+    border-top: 1px solid var(--blue);
+
+    //    margin-top: var(--spacing-xxxl);
+    .links {
+        width: 100%;
+        padding: var(--spacing-xs) var(--spacing-s);
+        text-transform: uppercase;
+        color: var(--blue);
+        font-size: var(--font-size-xxs);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    &-navtop {
+        text-align: right;
+        line-height: 1.4;
+    }
+
+    &-nav {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+
+        @include media-breakpoint-up(md) {
+            flex-direction: row;
+            gap: var(--spacing-m);
+        }
+    }
+
+    .bottom-bar {
+        color: var(--blue);
+        font-size: var(--font-size-xxs);
+        padding: var(--spacing-xs) var(--spacing-s);
+        border-top: 1px solid var(--blue);
+        text-transform: uppercase;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .footer-credit {
+        white-space: nowrap;
+
+        a {
+            color: inherit;
+        }
+    }
+
+    .logos {
+        padding: var(--spacing-xs) var(--spacing-s);
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: var(--spacing-l);
+        margin-bottom: var(--spacing-xl);
+
+        .image {
+            overflow: auto;
+
+            picture.full {
+                height: auto;
+                padding-top: 0 !important;
+
+                img {
+                    position: relative;
+                    width: auto;
+                    height: auto;
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+
+    @include media-breakpoint-down (xs) {
+        padding-top: var(--spacing-xxl);
+        margin-top: var(--spacing-xxl);
+        padding-bottom: 0;
+
+        .links {
+            flex-direction: column;
+
+            .footer-right {
+                width: 100%;
+
+                .footer-navtop {
+                    text-align: center;
+                    gap: var(--spacing-xxs);
+                }
+
+                .footer-nav {
+                    text-align: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    gap: var(--spacing-xxs);
+                }
+            }
+        }
+
+        .logo-circulos {
+            margin-bottom: var(--spacing-m);
+            margin-top: var(--spacing-m);
+        }
+
+        .logo-igfae-25 {
+            margin-bottom: var(--spacing-l);
+        }
+
+        .logos {
+            justify-content: center;
+        }
+    }
+}
+
+.page-template-template-persoa {
+    .footer {
+        margin-top: 0;
+    }
+}
+
+@include media-breakpoint-down (xs) {
+    .single-experimento {
+        .footer {
+            margin-top: 0;
+        }
+    }
+}

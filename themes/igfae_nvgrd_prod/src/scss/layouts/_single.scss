@@ -1,0 +1,138 @@
+.single {
+
+    &-header {
+        text-align: center;
+        margin-bottom: var(--spacing-xxl);
+    }
+
+    &-block {
+        padding-bottom: var(--spacing-xxl);
+    }
+
+    &-content {
+        width: 75%;
+        padding: var(--spacing-xl) var(--spacing-s);
+
+        @include media-breakpoint-up(md) {
+            padding-left: var(--spacing-s);
+            padding-right: 0;
+        }
+
+        iframe {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            height: auto
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            padding-bottom: var(--spacing-s);
+        }
+    }
+
+    &-image {
+        width: 100%;
+        padding-bottom: var(--spacing-xxl);
+
+        @include media-breakpoint-up(md) {
+            width: 75%;
+        }
+
+        .image-caption {
+            padding: var(--spacing-xs) var(--spacing-s);
+        }
+
+        &:last-of-type {
+            padding-bottom: 0;
+        }
+    }
+
+    &-text p {
+        padding-bottom: var(--spacing-xs);
+    }
+
+    &-video {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+    }
+}
+
+.single-area-investigacion,
+.single-programa,
+.single-oferta {
+    @include media-breakpoint-down (xs) {
+        .single-wrapper {
+            padding-top: var(--spacing-xl);
+        }
+
+        .medioalto {
+            padding-top: 0;
+        }
+
+        .grid-2der {
+            grid-template-columns: 1fr;
+            margin-top: 0;
+
+            .w-25 {
+                width: 100%;
+            }
+
+            .right {
+                margin-top: var(--spacing-m);
+            }
+        }
+
+        .grid-list-pequena {
+            border-bottom: 1px dotted var(--blue);
+            padding-bottom: var(--spacing-s);
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        .bloque-list-meritos {
+            margin-top: var(--spacing-xl);
+        }
+    }
+
+    .medioalto {
+        padding-top: var(--spacing-xl);
+    }
+}
+
+.single-experimento {
+
+    .personal-list .row {
+        border-color: var(--white);
+    }
+
+    @include media-breakpoint-down (xs) {
+        .grid-list-pequena {
+            border-bottom: 1px dotted var(--white);
+            padding-bottom: var(--spacing-s);
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        .bloque-list-meritos {
+            margin-top: var(--spacing-xl);
+        }
+
+    }
+}
+
+.single-post {
+    .data {
+        font-size: var(--font-size-xs);
+        padding-bottom: var(--spacing-xs);
+        color: var(--black);
+    }
+}

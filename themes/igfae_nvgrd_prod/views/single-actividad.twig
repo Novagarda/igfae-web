@@ -1,0 +1,136 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% extends "base.twig" %}
+
+{% block content %}
+
+	<div class="single-wrapper pad">
+
+		<div class="caixa-titulo">
+
+			{% if son_fille %}
+				<div class="medioalto medioalto-min flex alinha-entre">
+					<div class="--spacing-wwl-t pretitulo">
+						<a href="{{nai.link}}" class="titulo-azul-redondo link">
+							{{nai.title}}
+						</a>
+					</div>
+					<h1 class="--font-size-wwl --font-size-mb-xl azul tres_cuartos --spacing-m-b">
+						{% if post.subtitulo %}
+							<span class="subtitulo --font-size-s">{{post.subtitulo}}</span>
+						{% endif %}
+						{{post.title}}
+					</h1>
+				</div>
+			{% else %}
+				<div class="medioalto flex pad alinha-medio">
+					<h1 class="titulo-azul-redondo-xl">
+						<span>{{post.title}}</span>
+					</h1>
+				</div>
+			{% endif %}
+
+			{% if post.introducion %}
+				<div class="intro texto pad tres_quintos a-esq">
+					{{post.meta('introducion')}}
+				</div>
+			{% endif %}
+
+			{% if post.imaxe_destacada %}
+				<div class="medioalto imx">
+					{{ macros.imageLazy(post.imaxe_destacada,'img-blue img-centrar', '') }}
+				</div>
+			{% endif %}
+		</div>
+
+		{% if filles %}
+			<div class="list-filles reveal">
+				{% for item in filles %}
+					<a href="{{item.link}}" class="artigo">
+						<div class=''>
+							{% if item.imaxe_destacada %}
+								{{ macros.imageLazy(item.imaxe_destacada,'img-cadrada', '@1x') }}
+							{% endif %}
+						</div>
+						<div class="titulo">
+
+							<div class="left">
+								<p class="data --font-size-ms">{{item.subtitulo}}</p>
+								<h3 class="azul --font-size-ms">{{item.title}}</h3>
+							</div>
+
+							<div class="right arrow">
+								<img alt="arrow-right" src="{{ theme_uri_versioned('assets/img/arrow-s-r.svg') }}"/>
+							</div>
+
+						</div>
+					</a>
+				{% endfor %}
+			</div>
+		{% endif %}
+
+		<div class="caixa-principal --spacing-m-t reveal">
+
+			<div class="left">
+				{% if post.meta('ficha') %}
+					<ul class="ficha-s azul">
+						{% for campo in post.meta('ficha') %}
+							<li class="linha">
+								<div class="etiqueta --font-size-wws">{{campo.etiqueta}}</div>
+								{{ campo.link ? '<a href="' ~ campo.link ~ '" target="_blank">' : '' }}
+								<div class="txt --font-size-ms">{{campo.texto}}</div>
+								{{ campo.link ? '</a>' : '' }}
+							</li>
+						{% endfor %}
+					</ul>
+				{% endif %}
+			</div>
+
+			<div class="right --spacing-xl-b">
+
+				{% if post.contido %}
+					<div class="texto --font-size-wws">
+						{{post.contido|wpautop}}
+					</div>
+				{% endif %}
+
+				{% if post.meta('acordeon') %}
+					<div class="acordeon --spacing-l-t">
+						{% for key,linha in post.meta('acordeon') %}
+							<div class="linha">
+
+								{% if linha.enlace %}
+									<a href="{{linha.enlace}}" id="cabeza_{{key}}" class="cabeza enlace" data-id="{{key}}" target="_blank">
+									{% else %}
+										<div id="cabeza_{{key}}" class="cabeza" data-id="{{key}}">
+										{% endif %}
+										<div class="num">{{ "%02d"|format(key+1) }}</div>
+										<div class="etiqueta">{{linha.etiqueta}}</div>
+										<div class="arrow"><img alt="arrow-right" src="{{ theme_uri_versioned('assets/img/arrow-s-b.svg') }}"/></div>
+										{{ linha.enlace ? '</a>' : '</div>' }}
+
+										<div id="corpo_{{key}}" class="corpo texto --font-size-wws">
+											<div class="corpo-dentro">
+												{{linha.texto|wpautop}}
+											</div>
+										</div>
+									</div>
+								{% endfor %}
+							</div>
+						{% endif %}
+
+						{# {% include "blocks/flexible.twig" %} #}
+
+					</div>
+
+				</div>
+
+			</div>
+
+			{% include "blocks/block-gallery.twig" %}
+
+			{# FLEXIBLE abaixo #}
+			{% include "blocks/flexible.twig" %}
+
+
+		{% endblock %}

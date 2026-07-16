@@ -1,0 +1,20 @@
+{% import 'macros/macros.twig' as macros %}
+
+{# header #}
+<nav class="navtop">
+	<ul class="navtop-nav">
+		{% for nav in top.get_items if top.get_items %}
+			<li class="navtop-item">
+				<a href={{nav.link}} class="navtop-link dim {{nav.class}}" target="{{nav.target}}">{{nav.title}}</a>
+			</li>
+		{% endfor %}
+	</ul>
+
+	<ul class="navtop-rightnav">
+		{% for nav in topRight.get_items if topRight.get_items %}
+			<li>
+				<a href={{nav.link}} class="navtop-link dim {{nav.class}}" target="{{nav.target}}">{{nav.title}}</a>
+			</li>
+		{% endfor %}
+	</ul>
+</nav>

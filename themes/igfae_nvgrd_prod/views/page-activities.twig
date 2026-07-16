@@ -1,0 +1,27 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% extends "base.twig" %}
+
+{% block content %}
+	<section class="home-wrapper pax-projects">
+		<div class="medioalto linha-baixa flex alinha-medio pad persoaltop">
+			<h1 class="--font-size-xxxl --font-size-mb-xl azul">{{post.title}}</h1>
+		</div>
+
+		<div class="list-actividades">
+			{% for item in posts %}
+				<article class="">
+					<div class="titulo --spacing-s-t">
+						<a class="stretched-link" href="{{item.link}}">
+							<h3 class="titulo-azul-redondo">{{item.title}}</h3>
+						</a>
+					</div>
+
+					<div class="intro pad texto --font-size-wws">
+						{{item.meta('introducion')}}
+					</div>
+				</article>
+			{% endfor %}
+		</div>
+	</section>
+{% endblock %}

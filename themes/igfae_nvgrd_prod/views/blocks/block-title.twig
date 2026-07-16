@@ -1,0 +1,7 @@
+{% import 'macros/macros.twig' as macros %}
+
+<section class="block block-title {{item.borde ? '--border'}} {{item.cor ? ' --' ~ item.cor}}{{item.ancla ? ' anclado'}}" {{item.ancla ? ' id="' ~ item.ancla|lower|replace({' ': '-', 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'ñ': 'n'} ) ~ '"' :'' }}>
+	{{ '<' ~ item.elemento ~ ' class="titulo reveal">' }}
+	{{item.titulo}}
+	{{ "</" ~ item.elemento ~ ">" }}
+</section>

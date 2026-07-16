@@ -1,0 +1,27 @@
+{% import 'macros/macros.twig' as macros %}
+
+<aside class="sidemenu hideStart">
+	<nav>
+		<ul class="sidemenu-nav">
+			{% for nav in main.get_items %}
+				<li class="sidemenu-item">
+					{% if nav.children is defined and nav.children|length > 0 %}
+						<div class="sidemenu-drop {{nav.class}}">{{nav.title}}<span class="sidemenu-link-arrow">↓</span>
+						</a>
+					{% else %}
+						<a href={{nav.link}} class="sidemenu-link dim {{nav.class}}">{{nav.title}}</a>
+					{% endif %}
+					{% if nav.children is defined and nav.children|length > 0 %}
+						<ul class="subnav">
+							{% for child in nav.children %}
+								<li class="subnav-item">
+									<a href="{{ child.link }}" class="subnav-link sidemenu-link dim {{ child.class }}">{{ child.title }}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+				</li>
+			{% endfor %}
+		</ul>
+	</nav>
+</aside>

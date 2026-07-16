@@ -1,0 +1,137 @@
+.grid {
+  display: grid;
+
+  &-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &-2der {
+    grid-template-columns: 0.9fr 1.1fr;
+  }
+
+  &-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &-list-pequena {
+    grid-template-columns: 10rem 1fr;
+    gap: var(--spacing-xs);
+
+    @include media-breakpoint-up(md) {
+      gap: var(--spacing-xl);
+    }
+  }
+
+  @include media-breakpoint-down (xs) {
+    &-list-pequena {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@mixin grid12 {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: -webkit-min-content;
+    grid-auto-rows: min-content;
+    grid-column-gap: var(--spacing-m);
+    gap: var(--spacing-m);
+  }
+
+}
+
+.grid12 {
+  @include grid12
+}
+
+.col100 {
+  grid-column: 1 / -1;
+}
+
+.col12 {
+  grid-column: span 12;
+}
+
+.col4 {
+  grid-column: 1 / -1;
+
+  @include media-breakpoint-up(md) {
+    grid-column: span 4;
+  }
+}
+
+.col2 {
+  grid-template-columns: repeat(2, 1fr);
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.col6 {
+  grid-column: 1 / -1;
+
+  @include media-breakpoint-up(md) {
+    grid-column: span 6;
+  }
+}
+
+.col7 {
+  grid-column: 1 / -1;
+
+  @include media-breakpoint-up(md) {
+    grid-column: span 7;
+  }
+}
+
+.col8 {
+  grid-column: 1 / -1;
+
+  @include media-breakpoint-up(md) {
+    grid-column: span 8;
+  }
+}
+
+.col8-center {
+  grid-column: 1 / -1;
+
+  @include media-breakpoint-up(md) {
+    grid-column: 3 / span 8;
+  }
+}
+
+.col6-center {
+  grid-column: 2 / span 10;
+
+  @include media-breakpoint-up(md) {
+    grid-column: 4 / span 6;
+  }
+}
+
+.col10 {
+  grid-column: 1 / -1;
+
+  @include media-breakpoint-up(md) {
+    grid-column: span 10;
+  }
+}
+
+.col10-center {
+  grid-column: 1 / -1;
+
+  @include media-breakpoint-up(md) {
+    grid-column: 2 / span 10;
+  }
+
+}
+
+.col8-right {
+  grid-column: 1 / -1;
+
+  @include media-breakpoint-up(md) {
+    grid-column: 6 / span 8;
+  }
+}

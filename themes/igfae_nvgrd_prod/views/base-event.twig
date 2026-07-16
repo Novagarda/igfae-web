@@ -1,0 +1,60 @@
+{% import 'macros/macros.twig' as macros %}
+
+{% block html_head %}
+	{% include 'html-header.twig' %}
+	{% block head %}{% endblock %}
+	{% include "partials/top-scripts.twig" %}
+</head>{% endblock %}<body class="{{body_class}} {{post.class}}" data-template="base.twig">
+
+<header class="header">
+	{% block header %}
+		<div class="header-top">
+			<a href="{{options.link_base_de_datos}}" target="_blank">Base de datos</a>
+			<a href="#">Buscar</a>
+		</div>
+		<div class="header-logo">
+			<a href="{{site.link}}" id="home_link">
+				<img alt="{{site.title}}" src="{{ theme_uri_versioned('assets/img/igfae-logo.svg') }}"/>
+			</a>
+		</div>
+		<div class="header-menu">
+			{% include 'components/nav.twig' %}
+		</div>
+		<div class="header-blank"></div>
+		<div class="header-excelencia">
+			<img alt="{{site.title}}" src="{{ theme_uri_versioned('assets/img/maria_maeztu-blue.png') }}"/>
+		</div>
+		<div class="header-bottom">
+			<a href="{{options.link_base_de_datos}}" target="_blank">Base de datos</a>
+			{{ function('do_shortcode', '[wpml_language_selector_widget]') }}
+		</div>
+	{% endblock %}
+</header>
+
+{% include 'components/preload.twig' %}
+
+<div id="smooth-wrapper" class="relative">
+	{% include 'components/topnav.twig' %}
+
+	<div class="brandtop">
+		<img class="brandtop-left" src="{{ theme_uri_versioned('assets/img/igfae-logo-letra.svg') }}"/>
+		<img class="brandtop-right" src="{{ theme_uri_versioned('assets/img/igfae-logo-circulos.svg') }}"/>
+	</div>
+
+	{% block content %}
+		Sorry, no content
+	{% endblock %}
+
+
+	{# Footer #}
+	{% block footer %}
+		{% include 'components/footer.twig' %}
+	{% endblock %}
+</div>
+{# smooth-wrapper  #}
+
+{{ function('wp_footer') }}
+{% if options.cookies_check %}
+	{% include "partials/cookie-notice.twig" %}
+{% endif %}
+{% include 'partials/bottom-scripts.twig' %}</body></html>

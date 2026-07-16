@@ -1,0 +1,67 @@
+{% macro image(item,class,size) -%}
+	{% if Image(item).height and Image(item).width %}
+		{% set aspect     = Image(item).height / Image(item).width %}
+	{% else %}
+		{% set aspect     = 1 %}
+	{% endif %}
+	<div class="image">
+		<picture style="--aspect:{{aspect}}" class="">
+			<img class="{{class}}" src="{{ Image(item).src('@01x')|towebp }}" data-src="{{ Image(item).src(size)|towebp }}" sizes="{{ Image(item).img_sizes }}" alt="{{Image(item).alt}}">
+		</picture>
+	</div>
+{%- endmacro %}
+
+{% macro imageLazy(item,class,size) -%}
+	{% if Image(item).height and Image(item).width %}
+		{% set aspect     = Image(item).height / Image(item).width %}
+	{% else %}
+		{% set aspect     = 1 %}
+	{% endif %}
+	{% set sen_filtro = Image(item).sen_filtro %}
+	<div style="--aspect:{{aspect}}" class="image --lazy-image">
+
+		<picture class="{{class}}{{sen_filtro ? ' --sen-filtro'}}">
+			<img class="lazy" src="{{ Image(item).src('@0300x')|towebp }}" data-src="{{ Image(item).src(size)|towebp }}" sizes="{{ Image(item).img_sizes }}" alt="{{Image(item).alt}}" loading="lazy">
+		</picture>
+	</div>
+{%- endmacro %}
+
+{% macro imageLazyFull(item,class,size) -%}
+	{% if Image(item).height and Image(item).width %}
+		{% set aspect     = Image(item).height / Image(item).width %}
+	{% else %}
+		{% set aspect     = 1 %}
+	{% endif %}	
+	<div class="image --lazy-image">
+		<picture style="--aspect:{{aspect}}" class="full">
+			<img class="lazy {{class}}" src="{{ Image(item).src('@0300x')|towebp }}" data-src="{{ Image(item).src(size)|towebp }}" sizes="{{ Image(item).img_sizes }}" alt="{{Image(item).alt}}" loading="lazy">
+		</picture>
+	</div>
+{%- endmacro %}
+
+{% macro videoVimeo(id) -%}
+	<div class="video">
+		<iframe loading="lazy" src="https://player.vimeo.com/video/{{id}}?autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+	</div>
+	<script src="https://player.vimeo.com/api/player.js"></script>
+{%- endmacro %}
+
+{% macro videoPlyr(url) -%}
+	{# El código coge una cadena de video y genera una variable {{service}} y otra {{video_id}} #}
+	{# Formatos de video aceptados: #}
+	{# Vimeo: https://vimeo.com/111612995 #}
+	{# Youtube: https://www.youtube.com/watch?v=a8jil2jjzZ0 #}
+
+		{% if url matches '/vimeo\\.com/i' %}
+		{% set service = 'vimeo' %}
+		{% set url_parts = url|split('/') %}
+		{% set video_id = url_parts[3] %}
+	{% elseif url matches '/youtube\\.com/i' %}
+		{% set service = 'youtube' %}
+		{% set video_id = url|split('v=')|last %}
+	{% endif %}
+
+	<div class="video-wrapper">
+		<div class="player" data-plyr-provider="{{service}}" data-plyr-embed-id="{{video_id}}"></div>
+	</div>
+{%- endmacro %}

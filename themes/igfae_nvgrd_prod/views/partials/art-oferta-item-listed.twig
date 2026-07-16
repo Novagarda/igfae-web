@@ -1,0 +1,17 @@
+<a href="{{post.link}}" class="block-job-post pad activalink">
+	<div class="subtitulo caixa">
+		{% if post.get_field('data_limite') %}
+			<h5>{{ _e('Data límite', 'nvgrd') }}</h5>
+			{{ post.get_field('data_limite')|date("d/m/Y") }}
+		{% endif %}
+	</div>
+
+	<div class="subtitulo caixa">
+		{% if post.get_field('data_act') %}
+			<h5>{{ _e('Última actualización', 'nvgrd') }}</h5>
+			{{ post.get_field('data_act')|date("d/m/Y") }}
+		{% endif %}
+	</div>
+
+	<h3 class="azul --font-size-ms">{{ post.title }}</h3>
+</a>

@@ -1,0 +1,33 @@
+{% import 'macros/macros.twig' as macros %}
+
+<section class="block block-text {{item.borde ? ' --border'}} {{ item.filter_check ? ' --has-filter' }} {{item.cor ? ' --' ~ item.cor}}{{item.ancla ? ' anclado'}}" {{item.ancla ? ' id="' ~ item.ancla|lower|replace({' ': '-', 'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u', 'ñ': 'n'} ) ~ '"' :'' }}>
+	<div class="reveal">
+		<div class="grid grid-2 pad{{item.borde ? ' pad' : ' pad-ceo'}}">
+			<div class="left azul --font-size-m">
+
+				{% if item.title %}
+					{{ '<' ~ item.elemento ~ ' class="titulo --font-size-m">' }}
+					{{item.title}}
+					{{ "</" ~ item.elemento ~ ">" }}
+				{% endif %}
+
+				{% if not item.imaxe_ancho_completo and item.imaxe %}
+					<div class="imx">
+						{{ macros.imageLazy(item.imaxe,'img-centrar', '') }}
+						<p class="pe-de-foto --font-size-wws --spacing-xs-t{{item.ancho ? ' pad-l' : ''}}">{{item.imaxe.caption}}</p>
+					</div>
+				{% endif %}
+			</div>
+			<div class="right texto">
+				{{item.texto|wpautop}}
+			</div>
+		</div>
+
+		{% if item.imaxe_ancho_completo and item.imaxe %}
+			<div class="imx ancho-completo">
+				{{ macros.imageLazy(item.imaxe,'img-centrar', '') }}
+				<p class="pe-de-foto --font-size-wws --spacing-xs-t{{item.ancho ? ' pad-l' : ''}}">{{item.imaxe.caption}}</p>
+			</div>
+		{% endif %}
+	</div>
+</section>

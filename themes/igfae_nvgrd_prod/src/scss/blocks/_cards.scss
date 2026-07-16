@@ -1,0 +1,119 @@
+.block-banners-grid {
+
+
+    .grid-tarxetas {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: var(--spacing-m);
+        row-gap: var(--spacing-xl);
+        width: 100%;
+
+        @include media-breakpoint-up(sm) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include media-breakpoint-up(md) {
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-xl);
+        }
+    }
+
+    &.--big-cards .grid-tarxetas {
+        @include media-breakpoint-up(md) {
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-xl);
+        }
+
+        .card-title {
+            font-size: var(--font-size-s);
+        }
+
+        .card-intro {
+            font-size: var(--font-size-xs);
+        }
+    }
+
+    &.--has-filter {
+
+        .image {
+            background-color: var(--blue);
+        }
+
+        img {
+            mix-blend-mode: luminosity;
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+        }
+
+    }
+
+    .card {
+        &-item {
+            position: relative;
+
+
+
+
+            @include media-breakpoint-up(md) {
+                max-width: 50vw;
+            }
+
+            @media (hover: hover) {
+
+                &:hover {
+                    cursor: default;
+
+                    .card-intro {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        &-image {
+            padding-bottom: var(--spacing-xs);
+
+            .image {
+                aspect-ratio: 16 / 8;
+
+                img {
+                    object-fit: cover;
+                }
+            }
+        }
+
+        &-title {
+            font-size: var(--font-size-xs);
+        }
+
+        &-intro {
+            font-size: var(--font-size-xxs);
+        }
+
+        @media (hover: hover) {
+            &-intro {
+                opacity: 0;
+                @include transition(all, 300ms);
+            }
+        }
+
+
+
+    }
+}
+
+.block-supercards {
+
+
+    .card {
+        &-item {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+
+            @include media-breakpoint-up(md) {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+    }
+}

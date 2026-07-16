@@ -1,0 +1,27 @@
+<a href="{{post.link}}" class="block-job-post pad activalink">
+	{% if post.get_field('data_limite') %}
+		<div class="subtitulo caixa --spacing-s-b">
+			<h5>{{ _e('Data límite', 'nvgrd') }}</h5>
+			{{ post.get_field('data_limite')|date("d/m/Y") }}
+		</div>
+	{% endif %}
+
+	{% if post.get_field('data_act') %}
+		<div class="subtitulo caixa --spacing-s-b">
+			<h5>{{ _e('Última actualización', 'nvgrd') }}</h5>
+			{{ post.get_field('data_act')|date("d/m/Y") }}
+		</div>
+	{% endif %}
+
+	{% if post.get_field('programa') %}
+		<div class="programa caixa">
+			{% for programa in post.get_field('programa') %}
+				<div>{{programa.codigo}}</div>
+			{% endfor %}
+		</div>
+	{% endif %}
+
+	<div class="espacio"></div>
+	<h3 class="azul --font-size-ms --spacing-xxs-t ">{{ post.title }}</h3>
+	<div class="block-job-postover"></div>
+</a>
