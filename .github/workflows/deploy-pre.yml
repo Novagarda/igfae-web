@@ -55,8 +55,9 @@ jobs:
         working-directory: themes/igfae_nvgrd_prod
         run: |
           # Timber 1.x needs Twig 1/2; Composer blocks those as insecure by default.
+          composer self-update --2
           composer config audit.block-insecure false
-          composer install --no-dev --optimize-autoloader --no-interaction --no-audit
+          composer install --no-dev --optimize-autoloader --no-interaction
 
       - name: Configure SSH
         env:
