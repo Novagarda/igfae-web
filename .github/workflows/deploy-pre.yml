@@ -1,0 +1,112 @@
+# Deploy plugin + theme to SiteGround (pre) on push to `pre`.
+#
+# Required GitHub secrets (Settings → Secrets and variables → Actions):
+#   PRE_SSH_HOST          e.g. ssh.XXXX.sg-host.com  or the SiteGround SSH hostname
+#   PRE_SSH_PORT          e.g. 18765
+#   PRE_SSH_USER          SiteGround SSH username
+#   PRE_SSH_PRIVATE_KEY   Full private key (PEM) matching the public key in Site Tools
+#   PRE_WP_PATH           Absolute path to WordPress root on SiteGround
+#                         e.g. /home/customer/www/tudominio.com/public_html
+#
+# Optional:
+#   PRE_SSH_KNOWN_HOSTS   Output of: ssh-keyscan -p $PORT $HOST
+#                         If omitted, StrictHostKeyChecking is disabled for this job.
+
+name: Deploy pre (SiteGround)
+
+on:
+  push:
+    branches:
+      - pre
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-pre
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: themes/igfae_nvgrd_prod/package.json
+
+      - name: Build theme assets
+        working-directory: themes/igfae_nvgrd_prod
+        run: |
+          npm install
+          npm run prod
+
+      - name: Configure SSH
+        env:
+          PRE_SSH_HOST: ${{ secrets.PRE_SSH_HOST }}
+          PRE_SSH_PORT: ${{ secrets.PRE_SSH_PORT }}
+          PRE_SSH_USER: ${{ secrets.PRE_SSH_USER }}
+          PRE_SSH_PRIVATE_KEY: ${{ secrets.PRE_SSH_PRIVATE_KEY }}
+          PRE_SSH_KNOWN_HOSTS: ${{ secrets.PRE_SSH_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          test -n "$PRE_SSH_HOST"
+          test -n "$PRE_SSH_PORT"
+          test -n "$PRE_SSH_USER"
+          test -n "$PRE_SSH_PRIVATE_KEY"
+
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$PRE_SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+          if [ -n "${PRE_SSH_KNOWN_HOSTS:-}" ]; then
+            printf '%s\n' "$PRE_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          else
+            ssh-keyscan -p "$PRE_SSH_PORT" -H "$PRE_SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
+          fi
+          chmod 644 ~/.ssh/known_hosts
+
+          cat > ~/.ssh/config <<EOF
+          Host pre-sg
+            HostName ${PRE_SSH_HOST}
+            User ${PRE_SSH_USER}
+            Port ${PRE_SSH_PORT}
+            IdentityFile ~/.ssh/deploy_key
+            IdentitiesOnly yes
+            StrictHostKeyChecking accept-new
+          EOF
+          chmod 600 ~/.ssh/config
+
+      - name: Deploy plugin and theme
+        env:
+          PRE_WP_PATH: ${{ secrets.PRE_WP_PATH }}
+        run: |
+          set -euo pipefail
+          test -n "$PRE_WP_PATH"
+
+          PLUGIN_SRC="plugins/igfae-content-viewer/"
+          THEME_SRC="themes/igfae_nvgrd_prod/"
+          PLUGIN_DEST="${PRE_WP_PATH}/wp-content/plugins/igfae-content-viewer/"
+          THEME_DEST="${PRE_WP_PATH}/wp-content/themes/igfae_nvgrd_prod/"
+
+          RSYNC_SSH="ssh -F $HOME/.ssh/config"
+          RSYNC_OPTS=(-az --delete --exclude '.git' --exclude 'node_modules' --exclude '.DS_Store')
+
+          echo "Deploying plugin → ${PLUGIN_DEST}"
+          rsync "${RSYNC_OPTS[@]}" -e "$RSYNC_SSH" "$PLUGIN_SRC" "pre-sg:${PLUGIN_DEST}"
+
+          echo "Deploying theme → ${THEME_DEST}"
+          rsync "${RSYNC_OPTS[@]}" -e "$RSYNC_SSH" \
+            --exclude 'src' \
+            --exclude 'webpack.config.js' \
+            --exclude 'package.json' \
+            --exclude 'package-lock.json' \
+            "$THEME_SRC" "pre-sg:${THEME_DEST}"
+
+          echo "Deploy pre finished."

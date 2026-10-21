@@ -46,10 +46,10 @@ Sen build frontend propio; require PHP e conexión ás BBDD configuradas en WP A
 
 ## Despregue (pre / SiteGround)
 
-Pendente de configurar SSH + GitHub Action / script. Obxectivo:
+Workflow: [`.github/workflows/deploy-pre.yml`](.github/workflows/deploy-pre.yml).
 
-1. Push á rama `pre`
-2. Despregue automático (ou semi) só de `plugins/igfae-content-viewer` e `themes/igfae_nvgrd_prod` ao staging en SiteGround
+1. Push (ou merge) á rama `pre` → build do tema + `rsync` de plugin e tema a SiteGround
+2. Secrets en GitHub (`PRE_SSH_*`, `PRE_WP_PATH`); clave pública en Site Tools → SSH Keys
 3. Sen WP Migrate para código
 
 ## Documentación histórica
