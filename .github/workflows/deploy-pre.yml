@@ -1,4 +1,4 @@
-# Deploy plugin + theme to SiteGround (pre) on push to `pre`.
+# Deploy plugin + theme to SiteGround (pre) on push to `master`.
 #
 # Required GitHub secrets (Settings → Secrets and variables → Actions):
 #   PRE_SSH_HOST          e.g. ssh.XXXX.sg-host.com  or the SiteGround SSH hostname
@@ -10,14 +10,13 @@
 #
 # Optional:
 #   PRE_SSH_KNOWN_HOSTS   Output of: ssh-keyscan -p $PORT $HOST
-#                         If omitted, StrictHostKeyChecking is disabled for this job.
 
 name: Deploy pre (SiteGround)
 
 on:
   push:
     branches:
-      - pre
+      - master
   workflow_dispatch:
 
 concurrency:

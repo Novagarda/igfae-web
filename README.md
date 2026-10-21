@@ -15,13 +15,12 @@ Non se versiona o núcleo de WordPress, plugins de terceiros (ACF, WPML, etc.), 
 
 ## Ramas
 
+Por agora: traballo e deploy a SiteGround desde `master`.
+
 | Rama | Uso |
 |------|-----|
-| `master` | Desenvolvemento / integración |
-| `pre` | O que se desprega en preprodución (SiteGround) |
-| `prod` | O que se desprega en producción (USC), tras validar en pre |
-
-Fluxo habitual: traballo en `feature/*` ou `master` → merge a `pre` → deploy a SiteGround → validar → merge a `prod` → deploy a USC.
+| `master` | Desenvolvemento + deploy a pre (SiteGround) |
+| `pre` / `prod` | Reservadas para máis adiante (USC, etc.) |
 
 ## Contorno local
 
@@ -48,9 +47,11 @@ Sen build frontend propio; require PHP e conexión ás BBDD configuradas en WP A
 
 Workflow: [`.github/workflows/deploy-pre.yml`](.github/workflows/deploy-pre.yml).
 
-1. Push (ou merge) á rama `pre` → build do tema + `rsync` de plugin e tema a SiteGround
+1. Push a `master` → build do tema + `rsync` de plugin e tema a SiteGround
 2. Secrets en GitHub (`PRE_SSH_*`, `PRE_WP_PATH`); clave pública en Site Tools → SSH Keys
 3. Sen WP Migrate para código
+
+(Máis adiante: ramas `pre` / `prod` se fai falta.)
 
 ## Documentación histórica
 
