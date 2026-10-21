@@ -53,7 +53,10 @@ jobs:
 
       - name: Install theme PHP dependencies (Timber)
         working-directory: themes/igfae_nvgrd_prod
-        run: composer install --no-dev --optimize-autoloader --no-interaction
+        run: |
+          # Timber 1.x needs Twig 1/2; Composer blocks those as insecure by default.
+          composer config audit.block-insecure false
+          composer install --no-dev --optimize-autoloader --no-interaction --no-audit
 
       - name: Configure SSH
         env:
