@@ -39,11 +39,21 @@ jobs:
           cache: npm
           cache-dependency-path: themes/igfae_nvgrd_prod/package.json
 
+      - name: Setup PHP / Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          tools: composer
+
       - name: Build theme assets
         working-directory: themes/igfae_nvgrd_prod
         run: |
           npm install
           npm run prod
+
+      - name: Install theme PHP dependencies (Timber)
+        working-directory: themes/igfae_nvgrd_prod
+        run: composer install --no-dev --optimize-autoloader --no-interaction
 
       - name: Configure SSH
         env:
