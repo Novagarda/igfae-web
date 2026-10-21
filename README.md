@@ -1,37 +1,37 @@
 # IGFAE Web
 
-Código propio da web do **Instituto Galego de Física de Altas Enerxías (IGFAE)**: plugin de contido e tema WordPress.
+Custom code for the **Instituto Galego de Física de Altas Enerxías (IGFAE)** website: WordPress content plugin and theme.
 
-Desenvolvido por [Novagarda](https://novagarda.gal).
+Developed by [Novagarda](https://novagarda.gal).
 
-## Contido do monorepo
+## Monorepo contents
 
-| Ruta | Que é |
-|------|--------|
-| [`plugins/igfae-content-viewer/`](plugins/igfae-content-viewer/) | Plugin WordPress (publicacións, eventos, persoal, intranet…) |
-| [`themes/igfae_nvgrd_prod/`](themes/igfae_nvgrd_prod/) | Tema WordPress (Timber/Twig, SCSS, JS) |
+| Path | What it is |
+|------|------------|
+| [`plugins/igfae-content-viewer/`](plugins/igfae-content-viewer/) | WordPress plugin (publications, events, staff, intranet…) |
+| [`themes/igfae_nvgrd_prod/`](themes/igfae_nvgrd_prod/) | WordPress theme (Timber/Twig, SCSS, JS) |
 
-Non se versiona o núcleo de WordPress, plugins de terceiros (ACF, WPML, etc.), nin `uploads/`.
+WordPress core, third-party plugins (ACF, WPML, etc.), and `uploads/` are not versioned here.
 
-## Ramas
+## Branches
 
-Por agora: traballo e deploy a SiteGround desde `master`.
+For now: development and SiteGround deploy from `master`.
 
-| Rama | Uso |
-|------|-----|
-| `master` | Desenvolvemento + deploy a pre (SiteGround) |
-| `pre` / `prod` | Reservadas para máis adiante (USC, etc.) |
+| Branch | Use |
+|--------|-----|
+| `master` | Development + deploy to pre (SiteGround) |
+| `pre` / `prod` | Reserved for later (USC, etc.) |
 
-## Contorno local
+## Local environment
 
-Este repo vive fóra do docroot. En Local WP as carpetas activas seguen sendo:
+This repo lives outside the docroot. In Local WP the active paths remain:
 
 - `wp-content/plugins/igfae-content-viewer`
 - `wp-content/themes/igfae_nvgrd_prod`
 
-Sincroniza cambios entre o monorepo e Local cando desenvolvas (copiar/rsync ou abrir o monorepo como fonte de verdade e copiar ao sitio).
+On the `igfaegit` Local site these are symlinks into this monorepo (source of truth).
 
-### Tema — build
+### Theme — build
 
 ```bash
 cd themes/igfae_nvgrd_prod
@@ -39,33 +39,35 @@ npm install
 npm run prod    # → themes/igfae_nvgrd_prod/assets/
 ```
 
+`assets/` is gitignored; CI builds them on deploy.
+
 ### Plugin
 
-Sen build frontend propio; require PHP e conexión ás BBDD configuradas en WP Admin → IGFAE Viewer.
+No frontend build of its own; needs PHP and the databases configured in WP Admin → IGFAE Viewer.
 
-## Despregue (pre / SiteGround)
+## Deploy (pre / SiteGround)
 
 Workflow: [`.github/workflows/deploy-pre.yml`](.github/workflows/deploy-pre.yml).
 
-1. Push a `master` → build do tema + `rsync` de plugin e tema a SiteGround
-2. Secrets en GitHub (`PRE_SSH_*`, `PRE_WP_PATH`); clave pública en Site Tools → SSH Keys
-3. Sen WP Migrate para código
+1. Push to `master` → theme build + `rsync` of plugin and theme to SiteGround
+2. GitHub secrets (`PRE_SSH_*`, `PRE_WP_PATH`); public key in Site Tools → SSH Keys
+3. No WP Migrate for code
 
-(Máis adiante: ramas `pre` / `prod` se fai falta.)
+(Later: separate `pre` / `prod` branches if needed.)
 
-## Documentación histórica
+## Historical documentation
 
-Antes este código estaba en dous repos:
+This code previously lived in two repos:
 
 - https://github.com/Novagarda/igfae-content-viewer
 - https://github.com/Novagarda/igfae-theme
 
-O historial antigo permanece alí; a partir de agora o desenvolvemento é neste monorepo.
+Old history remains there; ongoing development is in this monorepo.
 
 ## Changelog
 
-Véxase [CHANGELOG.md](CHANGELOG.md).
+See [CHANGELOG.md](CHANGELOG.md).
 
-## Licenza
+## License
 
-Código do proxecto IGFAE / Novagarda. Plugins e librerías de terceiros manteñen as súas propias licenzas.
+Project code for IGFAE / Novagarda. Third-party plugins and libraries keep their own licenses.
