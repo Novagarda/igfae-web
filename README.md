@@ -15,12 +15,11 @@ WordPress core, third-party plugins (ACF, WPML, etc.), and `uploads/` are not ve
 
 ## Branches
 
-For now: development and SiteGround deploy from `master`.
-
 | Branch | Use |
 |--------|-----|
-| `master` | Development + deploy to pre (SiteGround) |
-| `pre` / `prod` | Reserved for later (USC, etc.) |
+| `master` | Development + auto-deploy to pre (SiteGround) |
+
+Production deploy is **manual** via Actions (`workflow_dispatch`), not on every push.
 
 ## Local environment
 
@@ -45,15 +44,24 @@ npm run prod    # → themes/igfae_nvgrd_prod/assets/
 
 No frontend build of its own; needs PHP and the databases configured in WP Admin → IGFAE Viewer.
 
-## Deploy (pre / SiteGround)
+## Deploy
+
+### Pre (SiteGround)
 
 Workflow: [`.github/workflows/deploy-pre.yml`](.github/workflows/deploy-pre.yml).
 
 1. Push to `master` → theme build + `rsync` of plugin and theme to SiteGround
-2. GitHub secrets (`PRE_SSH_*`, `PRE_WP_PATH`); public key in Site Tools → SSH Keys
-3. No WP Migrate for code
+2. Secrets: `PRE_SSH_*`, `PRE_WP_PATH`
 
-(Later: separate `pre` / `prod` branches if needed.)
+### Prod (USC)
+
+Workflow: [`.github/workflows/deploy-prod.yml`](.github/workflows/deploy-prod.yml).
+
+1. Actions → **Deploy prod (USC)** → Run workflow (manual)
+2. Secrets: `PROD_SSH_*`, `PROD_WP_PATH` (`/home/igfae/public_html`)
+3. Public key on `novagarda@igfae.usc.es`; GitHub Actions IP ranges allowed on firewall
+
+No WP Migrate for code.
 
 ## Historical documentation
 

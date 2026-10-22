@@ -1,0 +1,122 @@
+# Deploy plugin + theme to USC production (igfae.usc.es).
+# Manual only for now (workflow_dispatch) — does not run on every master push.
+#
+# Required GitHub secrets:
+#   PROD_SSH_HOST          igfae.usc.es
+#   PROD_SSH_PORT          22
+#   PROD_SSH_USER          novagarda
+#   PROD_SSH_PRIVATE_KEY   Private key matching the public key installed on USC
+#   PROD_WP_PATH           /home/igfae/public_html
+#
+# Optional:
+#   PROD_SSH_KNOWN_HOSTS   Output of: ssh-keyscan -p $PORT $HOST
+
+name: Deploy prod (USC)
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: themes/igfae_nvgrd_prod/package.json
+
+      - name: Setup PHP / Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          tools: composer
+
+      - name: Build theme assets
+        working-directory: themes/igfae_nvgrd_prod
+        run: |
+          npm install
+          npm run prod
+
+      - name: Install theme PHP dependencies (Timber)
+        working-directory: themes/igfae_nvgrd_prod
+        run: |
+          # Timber 1.x needs Twig 1/2; Composer blocks those as insecure by default.
+          composer self-update --2
+          composer config audit.block-insecure false
+          composer install --no-dev --optimize-autoloader --no-interaction
+
+      - name: Configure SSH
+        env:
+          PROD_SSH_HOST: ${{ secrets.PROD_SSH_HOST }}
+          PROD_SSH_PORT: ${{ secrets.PROD_SSH_PORT }}
+          PROD_SSH_USER: ${{ secrets.PROD_SSH_USER }}
+          PROD_SSH_PRIVATE_KEY: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
+          PROD_SSH_KNOWN_HOSTS: ${{ secrets.PROD_SSH_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          test -n "$PROD_SSH_HOST"
+          test -n "$PROD_SSH_PORT"
+          test -n "$PROD_SSH_USER"
+          test -n "$PROD_SSH_PRIVATE_KEY"
+
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$PROD_SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
+          if [ -n "${PROD_SSH_KNOWN_HOSTS:-}" ]; then
+            printf '%s\n' "$PROD_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          else
+            ssh-keyscan -p "$PROD_SSH_PORT" -H "$PROD_SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
+          fi
+          chmod 644 ~/.ssh/known_hosts
+
+          cat > ~/.ssh/config <<EOF
+          Host prod-usc
+            HostName ${PROD_SSH_HOST}
+            User ${PROD_SSH_USER}
+            Port ${PROD_SSH_PORT}
+            IdentityFile ~/.ssh/deploy_key
+            IdentitiesOnly yes
+            StrictHostKeyChecking accept-new
+          EOF
+          chmod 600 ~/.ssh/config
+
+      - name: Deploy plugin and theme
+        env:
+          PROD_WP_PATH: ${{ secrets.PROD_WP_PATH }}
+        run: |
+          set -euo pipefail
+          test -n "$PROD_WP_PATH"
+
+          PLUGIN_SRC="plugins/igfae-content-viewer/"
+          THEME_SRC="themes/igfae_nvgrd_prod/"
+          PLUGIN_DEST="${PROD_WP_PATH}/wp-content/plugins/igfae-content-viewer/"
+          THEME_DEST="${PROD_WP_PATH}/wp-content/themes/igfae_nvgrd_prod/"
+
+          RSYNC_SSH="ssh -F $HOME/.ssh/config"
+          RSYNC_OPTS=(-az --delete --exclude '.git' --exclude 'node_modules' --exclude '.DS_Store')
+
+          echo "Deploying plugin → ${PLUGIN_DEST}"
+          rsync "${RSYNC_OPTS[@]}" -e "$RSYNC_SSH" "$PLUGIN_SRC" "prod-usc:${PLUGIN_DEST}"
+
+          echo "Deploying theme → ${THEME_DEST}"
+          rsync "${RSYNC_OPTS[@]}" -e "$RSYNC_SSH" \
+            --exclude 'src' \
+            --exclude 'webpack.config.js' \
+            --exclude 'package.json' \
+            --exclude 'package-lock.json' \
+            "$THEME_SRC" "prod-usc:${THEME_DEST}"
+
+          echo "Deploy prod finished."
