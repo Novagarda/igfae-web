@@ -13,9 +13,9 @@
 
 	<div class="page-wrapper">
 
-		<div class="medioalto flex alinha-medio pad persoaltop linha-baixa{{ anclas ? ' con-anclas':''}}{{post.introducion ? ' medioalto-60'}}">
+		<div class="medioalto flex alinha-medio pad persoaltop linha-baixa{{ anclas ? ' con-anclas':''}}{{ post.introducion ? ' medioalto-60 cabecera-page' : '' }}">
 			<div class='safe-space-x2'></div>
-			<h1 class="--font-size-xxxl --font-size-mb-xl azul{{post.introducion ? ' --spacing-xl-b'}}">{{post.title}}</h1>
+			<h1 class="--font-size-xxxl --font-size-mb-xl azul{{ post.introducion ? ' --spacing-s-b' : '' }}">{{post.title}}</h1>
 			{% if post.introducion %}
 				<div class="intro azul{{ anclas ? ' con-anclas':''}}">{{post.introducion}}</div>
 			{% endif %}

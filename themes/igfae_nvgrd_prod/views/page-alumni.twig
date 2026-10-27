@@ -5,8 +5,8 @@
 {% block content %}
 	<section class="home-wrapper pax-projects">
 
-	    <div class="medioalto medioalto-60 linha-baixa flex alinha-medio pad persoaltop">
-			<h1 class="--font-size-xxxl --font-size-mb-xl azul{{post.introducion ? ' --spacing-xl-b'}}">{{post.title}}</h1>
+	    <div class="medioalto medioalto-60 linha-baixa flex alinha-medio pad persoaltop{{ post.introducion ? ' cabecera-page' : '' }}">
+			<h1 class="--font-size-xxxl --font-size-mb-xl azul{{ post.introducion ? ' --spacing-s-b' : '' }}">{{post.title}}</h1>
 			{{post.introducion ? '<div class="intro azul">' ~ post.introducion ~ '</div>' :''}}
 		</div>
 

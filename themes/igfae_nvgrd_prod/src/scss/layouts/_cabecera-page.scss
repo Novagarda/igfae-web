@@ -1,0 +1,49 @@
+// Cabecera medioalto con título + intro (páxinas flexibles, índices carreira/programas, etc.)
+.medioalto.cabecera-page {
+  height: auto;
+  overflow: visible;
+  min-height: calc(55vh - var(--alto-topbar) / 2);
+
+  &.medioalto-60 {
+    min-height: calc(60vh - var(--alto-topbar) / 2);
+  }
+
+  &.medioalto-40 {
+    min-height: calc(40vh - var(--alto-topbar) / 2);
+  }
+
+  &.con-anclas {
+    min-height: calc(55vh - var(--alto-topbar) / 2);
+    padding-bottom: 3.15rem;
+  }
+
+  @include media-breakpoint-up(md) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+
+    > .safe-space-x2 {
+      grid-row: 1;
+    }
+
+    > h1 {
+      grid-row: 2;
+      align-self: center;
+      justify-self: center;
+      width: 100%;
+      text-align: center;
+    }
+
+    > .intro {
+      grid-row: 3;
+      position: relative;
+      left: 0;
+      bottom: auto;
+      width: 50%;
+
+      &.con-anclas {
+        margin-bottom: var(--spacing-s);
+      }
+    }
+  }
+}
