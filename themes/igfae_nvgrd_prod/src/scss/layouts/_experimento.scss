@@ -139,13 +139,13 @@
 }
 
 .page-template-template-experimentos {
-    .experimentos {
+    .pad.experimentos {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         column-gap: var(--spacing-l);
         row-gap: var(--spacing-xl);
 
-        &-post {
+        .experimentos-post {
             display: grid;
             grid-template-columns: 0.9fr 1.1fr;
             column-gap: var(--spacing-s);
@@ -160,7 +160,7 @@
             column-gap: var(--spacing-s);
             row-gap: var(--spacing-l);
 
-            &-post {
+            .experimentos-post {
                 display: flex;
                 flex-direction: column;
 
