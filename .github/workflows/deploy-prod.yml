@@ -81,7 +81,9 @@ jobs:
           echo
 
           echo "ssh-keyscan ${PROD_SSH_HOST}:${PROD_SSH_PORT} (TCP reachability + host key):"
-          ssh-keyscan -p "$PROD_SSH_PORT" -H "$PROD_SSH_HOST" 2>&1 | head -10
+          if ! ssh-keyscan -p "$PROD_SSH_PORT" -H "$PROD_SSH_HOST" 2>&1 | head -10; then
+            echo "ssh-keyscan failed (firewall or wrong host/port); continuing to SSH login test..."
+          fi
 
           echo "SSH login test:"
           ssh -F "$HOME/.ssh/config" -o ConnectTimeout=45 -o BatchMode=yes prod-usc \
