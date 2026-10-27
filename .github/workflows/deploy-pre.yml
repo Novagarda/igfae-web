@@ -123,3 +123,20 @@ jobs:
             "$THEME_SRC" "pre-sg:${THEME_DEST}"
 
           echo "Deploy pre finished."
+
+      # Outside the web root. No --delete (must not wipe pre-pull.env).
+      # Does not run the pull. Prod workflow must not get this step.
+      - name: Install prod→pre sync script
+        run: |
+          set -euo pipefail
+          RSYNC_SSH="ssh -F $HOME/.ssh/config"
+          ssh -F "$HOME/.ssh/config" pre-sg 'mkdir -p ~/igfae-sync && chmod 700 ~/igfae-sync'
+          echo "Installing sync script → ~/igfae-sync/"
+          rsync -az -e "$RSYNC_SSH" \
+            tools/pre-pull-from-prod.sh \
+            pre-sg:igfae-sync/pre-pull-from-prod.sh
+          rsync -az -e "$RSYNC_SSH" \
+            tools/pre-pull.env.example \
+            pre-sg:igfae-sync/pre-pull.env.example
+          ssh -F "$HOME/.ssh/config" pre-sg 'chmod 700 ~/igfae-sync/pre-pull-from-prod.sh'
+          echo "Sync script installed (pre-pull.env not touched)."

@@ -3,13 +3,13 @@
 # Never overwrites monorepo plugin/theme (symlinks). Never pushes to prod.
 #
 # Usage (from anywhere):
-#   ./tools/pull-from-prod.sh
-#   ./tools/pull-from-prod.sh --yes
-#   ./tools/pull-from-prod.sh --db-only
-#   ./tools/pull-from-prod.sh --uploads-new
-#   ./tools/pull-from-prod.sh --plugins-only --yes   # third-party plugins only (opt-in)
-#   ./tools/pull-from-prod.sh --yes --plugins        # DB + uploads + plugins
-#   ./tools/pull-from-prod.sh --dry-run
+#   ./tools/local-pull-from-prod.sh
+#   ./tools/local-pull-from-prod.sh --yes
+#   ./tools/local-pull-from-prod.sh --db-only
+#   ./tools/local-pull-from-prod.sh --uploads-new
+#   ./tools/local-pull-from-prod.sh --plugins-only --yes
+#   ./tools/local-pull-from-prod.sh --yes --plugins
+#   ./tools/local-pull-from-prod.sh --dry-run
 
 set -euo pipefail
 

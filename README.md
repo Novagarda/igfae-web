@@ -74,17 +74,16 @@ No frontend build of its own; needs PHP and the databases configured in WP Admin
 
 ### Content sync (DB + uploads)
 
-Scripts live in [`tools/`](tools/README.md). GitHub Actions does **not** install them: it only deploys plugin + theme. Secrets stay in gitignored `tools/*.env`.
+Scripts live in [`tools/`](tools/README.md). Secrets stay in gitignored `tools/*.env`. Pre deploy copies `pre-pull-from-prod.sh` to `~/igfae-sync/` (not into the web root; does not overwrite `pre-pull.env`).
 
 ```bash
 cp tools/usc.env.example tools/usc.env   # fill from internal docs
-./tools/pull-from-prod.sh --yes          # prod → local
-./tools/install-pre-sync.sh              # copy prod→pre script onto the pre server
+./tools/local-pull-from-prod.sh --yes    # prod → local
 ```
 
-On pre, after install: `~/igfae-sync/pre-pull-from-prod.sh --yes --uploads-new`.
+On pre: `~/igfae-sync/pre-pull-from-prod.sh --yes --uploads-new`.
 
-Third-party plugins from prod are **opt-in** (`--plugins` with DB/uploads, or `--plugins-only`). Same exclude: never `igfae-content-viewer`; theme stays on GitHub deploy. IGFAE Viewer options are preserved on import. Laptop fallback: `./tools/sync-prod-to-pre.sh` (same flags).
+Third-party plugins from prod are **opt-in** (`--plugins` with DB/uploads, or `--plugins-only`). Same exclude: never `igfae-content-viewer`; theme stays on GitHub deploy. IGFAE Viewer options are preserved on import. Laptop fallback: `./tools/sync-prod-to-pre-from-local.sh` (same flags).
 
 ## Deploy
 
@@ -93,7 +92,8 @@ Third-party plugins from prod are **opt-in** (`--plugins` with DB/uploads, or `-
 Workflow: [`.github/workflows/deploy-pre.yml`](.github/workflows/deploy-pre.yml).
 
 1. Push to `master` → theme build + `rsync` of plugin and theme to SiteGround
-2. Secrets: `PRE_SSH_*`, `PRE_WP_PATH`
+2. Same workflow copies `tools/pre-pull-from-prod.sh` to `~/igfae-sync/` (env file on the server is not touched)
+3. Secrets: `PRE_SSH_*`, `PRE_WP_PATH`
 
 ### Prod (USC)
 

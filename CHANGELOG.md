@@ -9,6 +9,16 @@ The canonical version is in [`VERSION`](VERSION) at the repo root; plugin and th
 
 ## [Unreleased]
 
+### Changed
+
+- **Pre deploy** — GitHub Actions also installs `tools/pre-pull-from-prod.sh` to `~/igfae-sync/` on pre (outside the web root; does not overwrite `pre-pull.env` or run the pull). Prod deploy unchanged.
+- **Laptop prod→pre fallback** — Renamed `sync-prod-to-pre.sh` to `sync-prod-to-pre-from-local.sh`.
+- **Laptop prod→local pull** — Renamed `pull-from-prod.sh` to `local-pull-from-prod.sh`.
+
+### Fixed
+
+- **Pre DB import usermeta** — After remapping table prefix `wp_` → live prefix, copy `wp_capabilities` / `wp_user_roles` (and related keys) so WP-CLI and admin still see roles.
+
 ## [1.3.0] - 2026-10-27
 
 ### Added

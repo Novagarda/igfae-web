@@ -255,6 +255,48 @@ if [[ "$LIVE_PREFIX" != "wp_" ]]; then
     }
     echo "dropped " . count((array) $rows) . " leftover wp_* tables\n";
   ' || true
+
+  echo "   remapping wp_* usermeta / user_roles for table prefix ${LIVE_PREFIX}…"
+  wp_pre eval '
+    global $wpdb;
+    $p = $wpdb->prefix;
+    $map = array(
+      "wp_capabilities" => $p . "capabilities",
+      "wp_user_level" => $p . "user_level",
+      "wp_dashboard_quick_press_last_post_id" => $p . "dashboard_quick_press_last_post_id",
+      "wp_nav_menu_recently_edited" => $p . "nav_menu_recently_edited",
+      "wp_user-settings" => $p . "user-settings",
+      "wp_user-settings-time" => $p . "user-settings-time",
+    );
+    $migrated = 0;
+    foreach ($map as $old => $new) {
+      $rows = $wpdb->get_results($wpdb->prepare(
+        "SELECT user_id, meta_value FROM {$wpdb->usermeta} WHERE meta_key = %s",
+        $old
+      ));
+      foreach ((array) $rows as $row) {
+        $exists = (int) $wpdb->get_var($wpdb->prepare(
+          "SELECT COUNT(*) FROM {$wpdb->usermeta} WHERE user_id = %d AND meta_key = %s",
+          (int) $row->user_id,
+          $new
+        ));
+        if ($exists) {
+          continue;
+        }
+        $wpdb->insert($wpdb->usermeta, array(
+          "user_id" => (int) $row->user_id,
+          "meta_key" => $new,
+          "meta_value" => $row->meta_value,
+        ));
+        $migrated++;
+      }
+    }
+    $roles = get_option("wp_user_roles");
+    if (is_array($roles) && ! get_option($p . "user_roles")) {
+      update_option($p . "user_roles", $roles);
+    }
+    echo "remapped {$migrated} usermeta rows\n";
+  ' || true
 fi
 
 echo "→ Restoring pre IGFAE Viewer DB settings…"

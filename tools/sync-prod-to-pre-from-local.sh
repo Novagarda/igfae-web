@@ -2,11 +2,11 @@
 # Copy WordPress database + uploads from USC production to SiteGround pre.
 # Never overwrites plugin/theme (those deploy via GitHub Actions). Never writes to prod.
 #
-# Usage:
-#   ./tools/sync-prod-to-pre.sh --dry-run
-#   ./tools/sync-prod-to-pre.sh --yes --uploads-new
-#   ./tools/sync-prod-to-pre.sh --plugins-only --yes   # third-party plugins only (opt-in)
-#   ./tools/sync-prod-to-pre.sh --yes --plugins        # DB + uploads + plugins
+# Usage (runs on the laptop; two SSH hops):
+#   ./tools/sync-prod-to-pre-from-local.sh --dry-run
+#   ./tools/sync-prod-to-pre-from-local.sh --yes --uploads-new
+#   ./tools/sync-prod-to-pre-from-local.sh --plugins-only --yes
+#   ./tools/sync-prod-to-pre-from-local.sh --yes --plugins
 
 set -euo pipefail
 
