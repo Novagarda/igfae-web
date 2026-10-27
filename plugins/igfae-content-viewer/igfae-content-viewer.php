@@ -2,7 +2,7 @@
 /*
 Plugin Name: Visor contenido IGFAE _ NVGRD
 Description: Visor de contenido de la base de datos de IGFAE
-Version: 1.2.3
+Version: 1.3.0
 Author: novagarda
 Author URI: http://www.novagarda.gal
 Text Domain: igfae-content-viewer

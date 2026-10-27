@@ -89,14 +89,33 @@ function rewrite_add_rule_single_event() {
 	//flush_rewrite_rules();
 }
 
+function igfae_request_is_event_route($query = null) {
+	if (!is_array($query)) {
+		return false;
+	}
+	if (empty($query['pagename']) || empty($query['event'])) {
+		return false;
+	}
+	return in_array($query['pagename'], igfae_get_event_route_slugs(), true);
+}
+
+// Virtual /{type}/{id} routes are not WP pages, so core would send HTTP 404
+// before template_redirect. Swup preloads those URLs and treats 404 as failure.
+add_filter('pre_handle_404', 'igfae_pre_handle_404_event_routes', 10, 2);
+function igfae_pre_handle_404_event_routes($preempt, $wp_query) {
+	if (igfae_request_is_event_route($wp_query->query ?? null)) {
+		$wp_query->is_404 = false;
+		return true;
+	}
+	return $preempt;
+}
+
 add_action('template_redirect', 'template_redirect_igfae_event', 100);
 function template_redirect_igfae_event() {
     global $wp_query, $post;
     
     $event = NULL;
-    if ( !empty($wp_query->query) and array_key_exists('pagename',$wp_query->query)) {
-		$eventSlugs = igfae_get_event_route_slugs();
-		if ( in_array( $wp_query->query['pagename'], $eventSlugs, true ) && !empty($wp_query->query['event']) ) {
+    if ( igfae_request_is_event_route($wp_query->query ?? null) ) {
 			// Temporary backward compatibility: old /talk/{id} URLs redirect to canonical /conference/{id}.
 			if ($wp_query->query['pagename'] === 'talk') {
 				$canonicalUrl = home_url('/conference/' . intval($wp_query->query['event']));
@@ -127,6 +146,7 @@ function template_redirect_igfae_event() {
 				$wp_query->is_404 = false;
 				$wp_query->is_single = true;
 				$wp_query->is_singular = true;
+				status_header( 200 );
 
 				igfae_get_template_part('page', 'single-event', [
 					'event' => $event
@@ -140,7 +160,6 @@ function template_redirect_igfae_event() {
 				get_template_part( 404 );
 			}
 			exit();
-		}
     }
 	
 }

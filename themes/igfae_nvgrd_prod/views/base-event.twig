@@ -55,6 +55,7 @@
 
 {{ function('wp_footer') }}
 {% if options.cookies_check %}
+	{% include "partials/cookie-consent-enforcement.twig" %}
 	{% include "partials/cookie-notice.twig" %}
 {% endif %}
 {% include 'partials/bottom-scripts.twig' %}</body></html>

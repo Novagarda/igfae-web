@@ -2,6 +2,11 @@
 .deploy.env
 .env
 .env.*
+!.env.example
+tools/*.env
+!tools/*.env.example
+tools/*.sql
+tools/*.sql.gz
 
 # Dependencies
 node_modules/

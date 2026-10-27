@@ -4,6 +4,8 @@ Custom code for the **Instituto Galego de Física de Altas Enerxías (IGFAE)** w
 
 Developed by [Novagarda](https://novagarda.gal).
 
+**Current release:** `1.3.0` ([`VERSION`](VERSION)) — see [CHANGELOG.md](CHANGELOG.md).
+
 ## Monorepo contents
 
 | Path | What it is |
@@ -20,6 +22,32 @@ WordPress core, third-party plugins (ACF, WPML, etc.), and `uploads/` are not ve
 | `master` | Development + auto-deploy to pre (SiteGround) |
 
 Production deploy is **manual** via Actions (`workflow_dispatch`), not on every push.
+
+## Environment checklist
+
+Status as of 2026-10-27. Code = plugin + theme only. Content = WP database + `uploads/`. Hosts, SSH keys, table prefixes, and IGFAE Viewer credentials stay in local env files (gitignored) or server config — not here.
+
+| | Local | Pre | Prod |
+|--|-------|-----|------|
+| **Code** | Symlinks into this monorepo | Auto-deploy on push to `master` (GitHub Actions) | Manual Actions workflow exists; **not used yet** |
+| **Content** | Pull script from prod | Pull script on pre (pre ← prod) | Source of truth |
+| **IGFAE Viewer** | Local credentials kept across DB import | Pre credentials kept across DB import | Production credentials |
+
+### Done
+
+- [x] Monorepo (plugin + theme). Local site uses symlinks (Local “Duplicate site” breaks on those).
+- [x] Pre deploy: `master` → GitHub Actions (`assets` built in CI, not committed).
+- [x] Prod deploy workflow: [`.github/workflows/deploy-prod.yml`](.github/workflows/deploy-prod.yml) (`workflow_dispatch` only).
+- [x] Prod → local: DB + uploads; IGFAE Viewer options preserved.
+- [x] Prod → pre: server-to-server; IGFAE Viewer options preserved.
+- [x] Pre can reach the intranet databases used by the plugin.
+
+### Next
+
+- [ ] First GitHub Actions deploy to prod for **1.3.0** (manual). Back up plugin/theme on the server first. `rsync --delete` can drop uncommitted prod hotfixes.
+- [ ] After push: `./tools/install-pre-sync.sh` if the prod→pre script changed.
+- [ ] Feature branches per ticket (not a single long-lived `dev`).
+- [ ] Later: IGFAE Viewer DB from `wp-config` constants, instead of backup/restore of options.
 
 ## Local environment
 
@@ -44,6 +72,20 @@ npm run prod    # → themes/igfae_nvgrd_prod/assets/
 
 No frontend build of its own; needs PHP and the databases configured in WP Admin → IGFAE Viewer.
 
+### Content sync (DB + uploads)
+
+Scripts live in [`tools/`](tools/README.md). GitHub Actions does **not** install them: it only deploys plugin + theme. Secrets stay in gitignored `tools/*.env`.
+
+```bash
+cp tools/usc.env.example tools/usc.env   # fill from internal docs
+./tools/pull-from-prod.sh --yes          # prod → local
+./tools/install-pre-sync.sh              # copy prod→pre script onto the pre server
+```
+
+On pre, after install: `~/igfae-sync/pre-pull-from-prod.sh --yes --uploads-new`.
+
+Third-party plugins from prod are **opt-in** (`--plugins` with DB/uploads, or `--plugins-only`). Same exclude: never `igfae-content-viewer`; theme stays on GitHub deploy. IGFAE Viewer options are preserved on import. Laptop fallback: `./tools/sync-prod-to-pre.sh` (same flags).
+
 ## Deploy
 
 ### Pre (SiteGround)
@@ -58,10 +100,20 @@ Workflow: [`.github/workflows/deploy-pre.yml`](.github/workflows/deploy-pre.yml)
 Workflow: [`.github/workflows/deploy-prod.yml`](.github/workflows/deploy-prod.yml).
 
 1. Actions → **Deploy prod (USC)** → Run workflow (manual)
-2. Secrets: `PROD_SSH_*`, `PROD_WP_PATH` (`/home/igfae/public_html`)
-3. Public key on `novagarda@igfae.usc.es`; GitHub Actions IP ranges allowed on firewall
+2. Secrets: `PROD_SSH_*`, `PROD_WP_PATH` (set in the GitHub repo, not in git)
 
 No WP Migrate for code.
+
+## Releases
+
+**Pre** tracks `master` (no version bump per push). **Prod** = numbered release: same day you deploy to USC, the repo must show that version.
+
+1. During development, note changes under `## [Unreleased]` in [CHANGELOG.md](CHANGELOG.md) (optional).
+2. When ready for prod, choose semver (`patch` / `minor`), run `./tools/bump-version.sh x.y.z` if the number changed since last release.
+3. Move changelog entries into `## [x.y.z] - YYYY-MM-DD`, leave `[Unreleased]` empty, update the **Current release** line in this README.
+4. Commit, `git tag vX.Y.Z`, push branch + tag, run **Deploy prod (USC)** on that commit.
+
+Plugin `Version:` and theme `style.css` header always match [`VERSION`](VERSION).
 
 ## Historical documentation
 

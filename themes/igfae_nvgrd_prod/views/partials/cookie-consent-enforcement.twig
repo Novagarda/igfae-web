@@ -1,0 +1,120 @@
+<script>
+(function () {
+  var COOKIE_PREFIXES = {
+    performance: ['JSESSIONID'],
+    analytics: ['_ga', '_gid', '_gat', '_gac_', '_gcl_', '_ga_', 'ga', '__utm'],
+    marketing: ['SSID', '_fbp', 'fr', 'IDE', 'NID', 'DV', '1P_JAR', '_gcl_au']
+  };
+
+  function matchesPrefix (cookieName, prefix) {
+    return cookieName === prefix || cookieName.indexOf(prefix) === 0;
+  }
+
+  function deleteCookie (name) {
+    var host = window.location.hostname;
+    var domainCandidates = ['', host];
+    if (host.indexOf('.') !== -1) {
+      domainCandidates.push('.' + host);
+      var parts = host.split('.');
+      if (parts.length > 2) {
+        domainCandidates.push('.' + parts.slice(-2).join('.'));
+      }
+    }
+    domainCandidates.forEach(function (domain) {
+      var base = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+      document.cookie = base + (domain ? '; domain=' + domain : '');
+    });
+  }
+
+  function purgeCategory (category, allowed) {
+    if (allowed) {
+      return;
+    }
+    var prefixes = COOKIE_PREFIXES[category] || [];
+    var names = (document.cookie || '').split(';').map(function (part) {
+      return part.trim().split('=')[0];
+    }).filter(Boolean);
+
+    names.forEach(function (cookieName) {
+      for (var i = 0; i < prefixes.length; i++) {
+        if (matchesPrefix(cookieName, prefixes[i])) {
+          deleteCookie(cookieName);
+          break;
+        }
+      }
+    });
+  }
+
+  /** Site Kit + WP Consent API (statistics / marketing). */
+  function syncWpConsentApi (detail) {
+    if (typeof window.wp_set_consent !== 'function' || !detail) {
+      return;
+    }
+    if (typeof window.wp_consent_type === 'undefined') {
+      window.wp_consent_type = 'optin';
+      document.dispatchEvent(new CustomEvent('wp_consent_type_defined'));
+    }
+    var level = function (allowed) {
+      return allowed ? 'allow' : 'deny';
+    };
+    wp_set_consent('functional', 'allow');
+    wp_set_consent('statistics', level(!!detail.analytics));
+    wp_set_consent('marketing', level(!!detail.marketing));
+    wp_set_consent('preferences', level(!!detail.performance));
+  }
+
+  function updateGtagConsent (detail) {
+    if (typeof window.gtag !== 'function' || !detail) {
+      return;
+    }
+    window.gtag('consent', 'update', {
+      analytics_storage: detail.analytics ? 'granted' : 'denied',
+      ad_storage: detail.marketing ? 'granted' : 'denied',
+      ad_user_data: detail.marketing ? 'granted' : 'denied',
+      ad_personalization: detail.marketing ? 'granted' : 'denied',
+      functionality_storage: detail.performance ? 'granted' : 'denied',
+      personalization_storage: detail.performance ? 'granted' : 'denied'
+    });
+  }
+
+  function activateDeferredScripts (detail) {
+    var nodes = document.querySelectorAll('script[type="text/plain"][data-cookie-consent]');
+    nodes.forEach(function (node) {
+      var category = node.getAttribute('data-cookie-consent');
+      if (!detail || !detail[category]) {
+        return;
+      }
+      var script = document.createElement('script');
+      Array.prototype.slice.call(node.attributes).forEach(function (attr) {
+        if (attr.name === 'type' || attr.name === 'data-cookie-consent') {
+          return;
+        }
+        script.setAttribute(attr.name, attr.value);
+      });
+      script.text = node.text || node.textContent || '';
+      if (node.src) {
+        script.src = node.src;
+      }
+      node.parentNode.replaceChild(script, node);
+    });
+  }
+
+  function applyConsent (detail) {
+    if (!detail || typeof detail !== 'object') {
+      return;
+    }
+    purgeCategory('performance', !!detail.performance);
+    purgeCategory('analytics', !!detail.analytics);
+    purgeCategory('marketing', !!detail.marketing);
+    syncWpConsentApi(detail);
+    updateGtagConsent(detail);
+    activateDeferredScripts(detail);
+    document.documentElement.classList.toggle('igfae-cookies-analytics', !!detail.analytics);
+    document.documentElement.classList.toggle('igfae-cookies-marketing', !!detail.marketing);
+  }
+
+  document.addEventListener('gdprCookiesEnabled', function (event) {
+    applyConsent(event.detail);
+  });
+})();
+</script>

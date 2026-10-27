@@ -38,7 +38,6 @@ import Igfae from './modules/igfae'
 import Slider from './modules/slider'
 import Preload from './modules/preload'
 import Video from './modules/video'
-import Cookies from './modules/cookies'
 
 viewportUnitsBuggyfill.init()
 
