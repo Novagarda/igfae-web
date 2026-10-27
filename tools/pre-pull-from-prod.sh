@@ -2,6 +2,7 @@
 # Run ON SiteGround pre. Pulls WordPress DB + uploads from USC prod.
 # Never overwrites plugin/theme. Never writes to prod.
 # Preserves IGFAE Viewer DB options (igfae_db_* / igfae_db_intranet_*).
+# Sets blog_public=0 after import (see mu-plugins/igfae-pre-discourage-indexing.php on pre).
 #
 # Install: copy this file + pre-pull.env to ~/igfae-sync/ on pre.
 # Usage:
@@ -326,6 +327,9 @@ wp_pre search-replace "${PROD_ORIGIN}" "${PRE_ORIGIN}" --all-tables --report-cha
 if [[ "$PROD_ORIGIN" == https://* ]]; then
   wp_pre search-replace "http://${PROD_ORIGIN#https://}" "${PRE_ORIGIN}" --all-tables --report-changed-only || true
 fi
+
+echo "→ Discourage search engine indexing (blog_public=0)…"
+wp_pre option update blog_public 0
 
 echo "→ rewrite flush…"
 wp_pre rewrite flush || true

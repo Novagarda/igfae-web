@@ -92,8 +92,9 @@ Third-party plugins from prod are **opt-in** (`--plugins` with DB/uploads, or `-
 Workflow: [`.github/workflows/deploy-pre.yml`](.github/workflows/deploy-pre.yml).
 
 1. Push to `master` → theme build + `rsync` of plugin and theme to SiteGround
-2. Same workflow copies `tools/pre-pull-from-prod.sh` to `~/igfae-sync/` (env file on the server is not touched)
-3. Secrets: `PRE_SSH_*`, `PRE_WP_PATH`
+2. Same workflow deploys `mu-plugins/igfae-pre-discourage-indexing.php` (pre only; keeps staging out of search indexes)
+3. Same workflow copies `tools/pre-pull-from-prod.sh` to `~/igfae-sync/` (env file on the server is not touched)
+4. Secrets: `PRE_SSH_*`, `PRE_WP_PATH`
 
 ### Prod (USC)
 

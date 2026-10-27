@@ -122,6 +122,12 @@ jobs:
             --exclude 'package-lock.json' \
             "$THEME_SRC" "pre-sg:${THEME_DEST}"
 
+          MU_PLUGIN_SRC="mu-plugins/igfae-pre-discourage-indexing.php"
+          MU_PLUGIN_DEST="${PRE_WP_PATH}/wp-content/mu-plugins/igfae-pre-discourage-indexing.php"
+          echo "Deploying pre mu-plugin → ${MU_PLUGIN_DEST}"
+          ssh -F "$HOME/.ssh/config" pre-sg "mkdir -p '${PRE_WP_PATH}/wp-content/mu-plugins'"
+          rsync -az -e "$RSYNC_SSH" "$MU_PLUGIN_SRC" "pre-sg:${MU_PLUGIN_DEST}"
+
           echo "Deploy pre finished."
 
       # Outside the web root. No --delete (must not wipe pre-pull.env).
