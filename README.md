@@ -115,15 +115,6 @@ No WP Migrate for code.
 
 Plugin `Version:` and theme `style.css` header always match [`VERSION`](VERSION).
 
-## Historical documentation
-
-This code previously lived in two repos:
-
-- https://github.com/Novagarda/igfae-content-viewer
-- https://github.com/Novagarda/igfae-theme
-
-Old history remains there; ongoing development is in this monorepo.
-
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md).

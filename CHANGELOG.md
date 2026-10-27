@@ -9,6 +9,8 @@ The canonical version is in [`VERSION`](VERSION) at the repo root; plugin and th
 
 ## [Unreleased]
 
+## [1.3.1] - 2026-10-27
+
 ### Changed
 
 - **Pre deploy** — GitHub Actions also installs `tools/pre-pull-from-prod.sh` to `~/igfae-sync/` on pre (outside the web root; does not overwrite `pre-pull.env` or run the pull). Prod deploy unchanged.
@@ -25,7 +27,7 @@ The canonical version is in [`VERSION`](VERSION) at the repo root; plugin and th
 
 ### Added
 
-- **Monorepo `igfae-web`** — Single repository for `igfae-content-viewer` and `igfae_nvgrd_prod`, with unified README and changelog. Former repos: `Novagarda/igfae-content-viewer`, `Novagarda/igfae-theme`.
+- **Monorepo `igfae-web`** — Single repository for `igfae-content-viewer` and `igfae_nvgrd_prod`, with unified README and changelog.
 - **`tools/` content-sync scripts** — Versioned prod→local (`pull-from-prod.sh`) and prod→pre (`pre-pull-from-prod.sh`, `sync-prod-to-pre.sh`) runbooks, plus `install-pre-sync.sh` to install the pre script outside the web root (`~/igfae-sync/`). Example env files (`usc.env.example`, `pre-pull.env.example`); real `tools/*.env` and SQL dumps stay gitignored.
 - **Journal in publications list and modal** *(plugin + theme)* — Show `JournalRef` below the article title in list views and at the bottom of the article detail modal. Theme: generic `.list01-meta` styles.
 - **Cookie consent enforcement** *(theme)* — `cookie-consent-head.twig` sets Google Consent Mode defaults (deny until choice). `cookie-consent-enforcement.twig` listens for `gdprCookiesEnabled`, syncs WP Consent API / `gtag`, purges non-essential cookies by category, activates `script[type="text/plain"][data-cookie-consent]`, and toggles `html` classes for analytics/marketing.
@@ -44,12 +46,3 @@ The canonical version is in [`VERSION`](VERSION) at the repo root; plugin and th
 
 - **Publications fatal on empty or invalid dates** *(plugin)* — Guard `DateTime` creation and formatting in `publications-list-item.php` and `publications-list.php` so a missing or invalid `Date` no longer fatals the publications shortcode.
 - **Event detail URLs returned HTTP 404** *(plugin)* — Virtual `/{type}/{id}` routes are not WP pages; core 404 broke Swup preloads. `pre_handle_404` + `status_header(200)` for valid event routes; shared `igfae_request_is_event_route()` helper.
-
-## Previous history
-
-Releases before the monorepo lived in the separate plugin and theme repositories. See:
-
-- Plugin: https://github.com/Novagarda/igfae-content-viewer/blob/master/CHANGELOG.md
-- Theme: https://github.com/Novagarda/igfae-theme/blob/master/CHANGELOG.md
-
-Last versions in those repos before merge: plugin **1.2.3**, theme **1.2.3**.
