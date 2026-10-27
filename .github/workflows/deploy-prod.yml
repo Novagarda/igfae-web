@@ -129,7 +129,8 @@ jobs:
           THEME_DEST="${PROD_WP_PATH}/wp-content/themes/igfae_nvgrd_prod/"
 
           RSYNC_SSH="ssh -F $HOME/.ssh/config"
-          RSYNC_OPTS=(-az --delete --exclude '.git' --exclude 'node_modules' --exclude '.DS_Store')
+          # USC: plugin/theme dirs are apache-owned; novagarda has ACL rw but cannot utime/chown.
+          RSYNC_OPTS=(-az --delete --omit-dir-times --no-times --no-owner --no-group --exclude '.git' --exclude 'node_modules' --exclude '.DS_Store')
 
           echo "Deploying plugin → ${PLUGIN_DEST}"
           rsync "${RSYNC_OPTS[@]}" -e "$RSYNC_SSH" "$PLUGIN_SRC" "prod-usc:${PLUGIN_DEST}"
