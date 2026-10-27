@@ -12,7 +12,7 @@ const settings = {
   port: 3000,
 
   // A target to proxy all BrowserSync requests to.
-  proxy: 'http://localhost:10349'
+  proxy: 'http://localhost:10351'
 };
 
 module.exports = {
