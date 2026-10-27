@@ -329,7 +329,9 @@ if [[ "$PROD_ORIGIN" == https://* ]]; then
 fi
 
 echo "→ Discourage search engine indexing (blog_public=0)…"
-wp_pre option update blog_public 0
+# wp option update uses get_option(); pre mu-plugin filters blog_public — update DB directly.
+OPTS_TABLE="$(wp_pre db prefix | tr -d '[:space:]')options"
+wp_pre db query "UPDATE \`${OPTS_TABLE}\` SET option_value = '0' WHERE option_name = 'blog_public'"
 
 echo "→ rewrite flush…"
 wp_pre rewrite flush || true

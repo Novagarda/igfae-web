@@ -14,7 +14,7 @@ These scripts are versioned here. GitHub Actions **pre** deploy also copies `pre
 
 Never overwrite plugin/theme. Never write to prod. IGFAE Viewer DB options are backed up and restored on import.
 
-After a prod→pre DB import, scripts set `blog_public` to `0` so Settings matches staging policy. **Pre** also gets `mu-plugins/igfae-pre-discourage-indexing.php` from GitHub deploy only (not prod): forces noindex even if the database still says “public”.
+After a prod→pre DB import, scripts set `blog_public` to `0` in the database (direct SQL, not `wp option update`, because the pre mu-plugin filters `get_option('blog_public')`). **Pre** also gets `mu-plugins/igfae-pre-discourage-indexing.php` from GitHub deploy only (not prod): forces noindex even if the database still says “public”.
 
 ## Secrets
 

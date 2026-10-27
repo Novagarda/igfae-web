@@ -303,7 +303,12 @@ if "${SSH_PRE[@]}" "$PRE_REMOTE" "command -v wp >/dev/null 2>&1"; then
     "${SSH_PRE[@]}" "$PRE_REMOTE" "cd '${PRE_WP_PATH}' && wp search-replace 'http://${PROD_ORIGIN#https://}' '${PRE_ORIGIN}' --all-tables --report-changed-only --allow-root" || true
   fi
   echo "→ Discourage search engine indexing on pre (blog_public=0)…"
-  "${SSH_PRE[@]}" "$PRE_REMOTE" "cd '${PRE_WP_PATH}' && wp option update blog_public 0 --allow-root"
+  "${SSH_PRE[@]}" "$PRE_REMOTE" bash -s -- "${PRE_WP_PATH}" <<'EOS'
+set -euo pipefail
+cd "$1"
+PREFIX="$(wp db prefix --allow-root | tr -d '[:space:]')"
+wp db query "UPDATE \`${PREFIX}options\` SET option_value = '0' WHERE option_name = 'blog_public'" --allow-root
+EOS
   "${SSH_PRE[@]}" "$PRE_REMOTE" "cd '${PRE_WP_PATH}' && wp rewrite flush --allow-root && wp cache flush --allow-root" || true
 else
   echo "   wp-cli missing on pre — search-replace skipped. Run it from WP-CLI or WP Migrate will not be used; install wp or tell me." >&2
