@@ -3,9 +3,32 @@
  * Template Name: Persoa
  */
 
- $parametros_url        = get_query_var('id');
- $id_persona            = substr($parametros_url, strrpos($parametros_url, '/') + 1);
- $persoa                = IgfaePersonal::fetch('', null, null, $id_persona)[0];
+ $parametros_url = get_query_var( 'id' );
+ if ( $parametros_url === '' || $parametros_url === false ) {
+	 $persoal_page = get_field( 'pagina_de_personal', 'option' );
+	 if ( $persoal_page ) {
+		 wp_safe_redirect( get_permalink( $persoal_page ), 301 );
+		 exit;
+	 }
+	 global $wp_query;
+	 $wp_query->set_404();
+	 status_header( 404 );
+	 nocache_headers();
+	 Timber::render( '404.twig', Timber::get_context() );
+	 exit;
+ }
+
+ $id_persona = substr( $parametros_url, strrpos( $parametros_url, '/' ) + 1 );
+ $personnel  = IgfaePersonal::fetch( '', null, null, $id_persona );
+ if ( empty( $personnel ) || ! isset( $personnel[0] ) ) {
+	 global $wp_query;
+	 $wp_query->set_404();
+	 status_header( 404 );
+	 nocache_headers();
+	 Timber::render( '404.twig', Timber::get_context() );
+	 exit;
+ }
+ $persoa = $personnel[0];
  $research_program      = $persoa->getResearchProg();
  $research_program_raw  = $persoa->getResearchProgRaw();
  $publications          = $persoa->getPublications();

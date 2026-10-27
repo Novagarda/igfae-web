@@ -17,6 +17,7 @@ The canonical version is in [`VERSION`](VERSION) at the repo root; plugin and th
 
 ### Fixed
 
+- **Staff profile URLs (persoa)** *(theme)* — Missing IGFAE Viewer personnel IDs (former members, stale links) no longer fatal the profile template; respond with the theme 404. Bare `/persoa/` (and language variants) redirect to the staff listing page (`pagina_de_personal`) instead of hitting the profile template with an empty id.
 - **Flexible page header with intro** *(theme)* — Long titles no longer overlap the intro on `medioalto` headers. Opt-in `cabecera-page` class (flexible pages and index templates with introduction) uses a dedicated grid layout on desktop: centered title, intro in flow at the bottom, `min-height` instead of fixed height. Title-to-intro spacing uses `--spacing-s-b` when an intro is present.
 - **Pre DB import usermeta** — After remapping table prefix `wp_` → live prefix, copy `wp_capabilities` / `wp_user_roles` (and related keys) so WP-CLI and admin still see roles.
 
