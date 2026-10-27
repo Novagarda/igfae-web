@@ -29,33 +29,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: npm
-          cache-dependency-path: themes/igfae_nvgrd_prod/package.json
-
-      - name: Setup PHP / Composer
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.2"
-          tools: composer
-
-      - name: Build theme assets
-        working-directory: themes/igfae_nvgrd_prod
-        run: |
-          npm install
-          npm run prod
-
-      - name: Install theme PHP dependencies (Timber)
-        working-directory: themes/igfae_nvgrd_prod
-        run: |
-          # Timber 1.x needs Twig 1/2; Composer blocks those as insecure by default.
-          composer self-update --2
-          composer config audit.block-insecure false
-          composer install --no-dev --optimize-autoloader --no-interaction
-
       - name: Configure SSH
         env:
           PROD_SSH_HOST: ${{ secrets.PROD_SSH_HOST }}
@@ -92,6 +65,54 @@ jobs:
             StrictHostKeyChecking accept-new
           EOF
           chmod 600 ~/.ssh/config
+
+      # Fails fast before npm/composer if USC blocks GitHub runner IPs.
+      - name: Test prod SSH from runner
+        env:
+          PROD_SSH_HOST: ${{ secrets.PROD_SSH_HOST }}
+          PROD_SSH_PORT: ${{ secrets.PROD_SSH_PORT }}
+          PROD_WP_PATH: ${{ secrets.PROD_WP_PATH }}
+        run: |
+          set -euo pipefail
+          test -n "$PROD_WP_PATH"
+
+          echo "Runner egress IP (share with USC if SSH times out):"
+          curl -fsS --max-time 20 https://api.ipify.org
+          echo
+
+          echo "ssh-keyscan ${PROD_SSH_HOST}:${PROD_SSH_PORT} (TCP reachability + host key):"
+          ssh-keyscan -p "$PROD_SSH_PORT" -H "$PROD_SSH_HOST" 2>&1 | head -10
+
+          echo "SSH login test:"
+          ssh -F "$HOME/.ssh/config" -o ConnectTimeout=45 -o BatchMode=yes prod-usc \
+            "echo SSH_OK; whoami; test -f '${PROD_WP_PATH}/wp-config.php' && echo WP_OK"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: themes/igfae_nvgrd_prod/package.json
+
+      - name: Setup PHP / Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          tools: composer
+
+      - name: Build theme assets
+        working-directory: themes/igfae_nvgrd_prod
+        run: |
+          npm install
+          npm run prod
+
+      - name: Install theme PHP dependencies (Timber)
+        working-directory: themes/igfae_nvgrd_prod
+        run: |
+          # Timber 1.x needs Twig 1/2; Composer blocks those as insecure by default.
+          composer self-update --2
+          composer config audit.block-insecure false
+          composer install --no-dev --optimize-autoloader --no-interaction
 
       - name: Deploy plugin and theme
         env:
