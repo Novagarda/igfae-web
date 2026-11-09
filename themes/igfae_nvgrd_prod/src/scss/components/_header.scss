@@ -53,8 +53,12 @@
     padding: var(--spacing-s) var(--spacing-s);
 
     img {
-      width: 100px;
+      width: 150px;
       height: auto;
+
+      @include media-breakpoint-up(md) {
+        width: 120px;
+      }
     }
   }
 

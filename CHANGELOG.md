@@ -13,7 +13,11 @@ The canonical version is in [`VERSION`](VERSION) at the repo root; plugin and th
 
 ### Changed
 
-- **María de Maeztu header logo** *(theme)* — Replaced PNG with `mm-igfae-1.svg` in `.header-excelencia`.
+- **María de Maeztu header logo** *(theme)* — `mm-igfae-1.svg` in `.header-excelencia` (hand-tuned, `#1F32FF`).
+
+### Fixed
+
+- **Footer logos row** *(theme)* — `max-height: 5rem` on `.footer .logos` (Opciones) for mixed-width logos.
 
 ## [1.3.1] - 2026-10-27
 
