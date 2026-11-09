@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Sync monorepo version to VERSION + WordPress plugin/theme headers.
+# Sync monorepo version to VERSION, WordPress plugin/theme headers, and README "Current release".
 # Does not edit CHANGELOG — add the release section and date when cutting a prod release.
 set -euo pipefail
 
@@ -18,6 +18,7 @@ fi
 
 PLUGIN="$ROOT/plugins/igfae-content-viewer/igfae-content-viewer.php"
 THEME="$ROOT/themes/igfae_nvgrd_prod/style.css"
+README="$ROOT/README.md"
 
 printf '%s\n' "$NEW" > "$ROOT/VERSION"
 
@@ -31,6 +32,7 @@ replace_line() {
 
 replace_line "$PLUGIN" "s/^Version: .*/Version: $NEW/"
 replace_line "$THEME" "s/^ \* Version: .*/ * Version: $NEW/"
+replace_line "$README" "s/^\*\*Current release:\*\* \`[^\`]*\`/**Current release:** \`$NEW\`/"
 
-echo "Version set to $NEW in VERSION, plugin header, and theme header."
+echo "Version set to $NEW in VERSION, plugin header, theme header, and README."
 echo "Next: update CHANGELOG.md (release section + date), commit, git tag v$NEW, push, Deploy prod (USC)."

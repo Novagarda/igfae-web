@@ -4,7 +4,7 @@ Custom code for the **Instituto Galego de Física de Altas Enerxías (IGFAE)** w
 
 Developed by [Novagarda](https://novagarda.gal).
 
-**Current release:** `1.3.0` ([`VERSION`](VERSION)) — see [CHANGELOG.md](CHANGELOG.md).
+**Current release:** `1.3.2` ([`VERSION`](VERSION)) — see [CHANGELOG.md](CHANGELOG.md).
 
 ## Monorepo contents
 
@@ -110,11 +110,11 @@ No WP Migrate for code.
 **Pre** tracks `master` (no version bump per push). **Prod** = numbered release: same day you deploy to USC, the repo must show that version.
 
 1. During development, note changes under `## [Unreleased]` in [CHANGELOG.md](CHANGELOG.md) (optional).
-2. When ready for prod, choose semver (`patch` / `minor`), run `./tools/bump-version.sh x.y.z` if the number changed since last release.
-3. Move changelog entries into `## [x.y.z] - YYYY-MM-DD`, leave `[Unreleased]` empty, update the **Current release** line in this README.
+2. When ready for prod, choose semver (`patch` / `minor`), run `./tools/bump-version.sh x.y.z` (updates [`VERSION`](VERSION), plugin/theme headers, and the **Current release** line here).
+3. Move changelog entries into `## [x.y.z] - YYYY-MM-DD`, leave `[Unreleased]` empty.
 4. Commit, `git tag vX.Y.Z`, push branch + tag, run **Deploy prod (USC)** on that commit.
 
-Plugin `Version:` and theme `style.css` header always match [`VERSION`](VERSION).
+Plugin `Version:`, theme `style.css` header, and **Current release** above always match [`VERSION`](VERSION).
 
 ## Changelog
 

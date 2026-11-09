@@ -9,6 +9,12 @@ The canonical version is in [`VERSION`](VERSION) at the repo root; plugin and th
 
 ## [Unreleased]
 
+## [1.3.2] - 2026-11-09
+
+### Changed
+
+- **María de Maeztu header logo** *(theme)* — Replaced PNG with `mm-igfae-1.svg` in `.header-excelencia`.
+
 ## [1.3.1] - 2026-10-27
 
 ### Changed
