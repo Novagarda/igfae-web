@@ -26,7 +26,7 @@ body.page-404 {
 
         @include media-breakpoint-down(xs) {
             min-height: auto;
-            padding-top: var(--spacing-xxxl);
+            padding-top: var(--spacing-xl);
         }
     }
 
@@ -50,6 +50,9 @@ body.page-404 {
         z-index: 1;
         flex: 1 0 auto;
         max-width: 26rem;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-s);
 
         &__status {
             margin: 0 0 var(--spacing-s);
@@ -62,14 +65,12 @@ body.page-404 {
         }
 
         h1 {
-            margin: 0 0 var(--spacing-s);
             font-size: var(--font-size-m);
             font-weight: var(--font-weight-base);
             line-height: var(--line-height-base);
         }
 
         &__text {
-            margin-bottom: var(--spacing-l);
             font-size: var(--font-size-s);
             line-height: var(--line-height-base);
         }
@@ -90,9 +91,11 @@ body.page-404 {
                 text-decoration: none;
                 @include transition(all, 0.3s);
 
-                &:hover {
-                    background-color: var(--gray-light);
-                    color: var(--blue-dark);
+                @media (hover: hover) {
+                    &:hover {
+                        background-color: var(--blue);
+                        color: var(--white);
+                    }
                 }
 
                 @include media-breakpoint-down(xs) {

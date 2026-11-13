@@ -27,12 +27,14 @@
 			<p class="wrapper-content__action">
 				<a href="{{ boton_url }}" class="carga-loading">{{ boton_title }}</a>
 			</p>
-		</article>
 
-		{% if credito %}
+					{% if credito %}
 			<footer class="wrapper-credit">
 				<p>{{ credito|nl2br|raw }}</p>
 			</footer>
 		{% endif %}
+		</article>
+
+
 	</div>
 {% endblock %}
