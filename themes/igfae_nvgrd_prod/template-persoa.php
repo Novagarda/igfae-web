@@ -10,23 +10,13 @@
 		 wp_safe_redirect( get_permalink( $persoal_page ), 301 );
 		 exit;
 	 }
-	 global $wp_query;
-	 $wp_query->set_404();
-	 status_header( 404 );
-	 nocache_headers();
-	 Timber::render( '404.twig', Timber::get_context() );
-	 exit;
+	 igfae_render_404( true );
  }
 
  $id_persona = substr( $parametros_url, strrpos( $parametros_url, '/' ) + 1 );
  $personnel  = IgfaePersonal::fetch( '', null, null, $id_persona );
  if ( empty( $personnel ) || ! isset( $personnel[0] ) ) {
-	 global $wp_query;
-	 $wp_query->set_404();
-	 status_header( 404 );
-	 nocache_headers();
-	 Timber::render( '404.twig', Timber::get_context() );
-	 exit;
+	 igfae_render_404( true );
  }
  $persoa = $personnel[0];
  $research_program      = $persoa->getResearchProg();

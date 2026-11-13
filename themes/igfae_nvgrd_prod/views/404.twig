@@ -1,16 +1,38 @@
-{% import 'macros/macros.twig' as macros %}
-
 {% extends "base.twig" %}
 
 {% block content %}
-	<div class="wrapper page-404">
-		<div class="block-404">
-			<div class="font-full">404</div>
-			<div class="pad --font-size-l">
-				{{ __('Páxina non atopada', 'nvgrd') }}
+	{% set boton = options.page_404_boton %}
+	{% set boton_url = boton and boton.url ? boton.url : site.link %}
+	{% set boton_title = boton and boton.title ? boton.title : __('Deste buraco negro si que podes escapar. Preme aquí', 'nvgrd') %}
+	{% set titular = options.page_404_titular|default(__('Esta páxina cruzou o horizonte de sucesos', 'nvgrd')) %}
+	{% set texto = options.page_404_texto|default(__('Esta páxina cruzou o horizonte de sucesos. Só queda o anel de luz que a rodeaba. Quizais cambiou de enderezo ou xa non existe: proba a buscala ou volve ao inicio.', 'nvgrd')) %}
+	{% set video = options.page_404_video %}
+	{% set credito = options.page_404_video_atribucion %}
+
+	<div class="wrapper">
+		{% if video and video.url %}
+			<div class="wrapper-media" aria-hidden="true">
+				<video autoplay muted loop playsinline preload="metadata">
+					<source src="{{ video.url }}" type="{{ video.mime_type|default('video/mp4') }}">
+				</video>
 			</div>
-		</div>
+		{% endif %}
 
+		<article class="wrapper-content" aria-labelledby="page-404-heading">
+			<p class="wrapper-content__status" aria-hidden="true">404</p>
+			<h1 id="page-404-heading">{{ titular }}</h1>
+			{% if texto %}
+				<div class="wrapper-content__text">{{ texto|nl2br|raw }}</div>
+			{% endif %}
+			<p class="wrapper-content__action">
+				<a href="{{ boton_url }}" class="carga-loading">{{ boton_title }}</a>
+			</p>
+		</article>
+
+		{% if credito %}
+			<footer class="wrapper-credit">
+				<p>{{ credito|nl2br|raw }}</p>
+			</footer>
+		{% endif %}
 	</div>
-
 {% endblock %}

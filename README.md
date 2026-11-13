@@ -4,7 +4,7 @@ Custom code for the **Instituto Galego de Física de Altas Enerxías (IGFAE)** w
 
 Developed by [Novagarda](https://novagarda.gal).
 
-**Current release:** `1.3.2` ([`VERSION`](VERSION)) — see [CHANGELOG.md](CHANGELOG.md).
+**Current release:** `1.3.3` ([`VERSION`](VERSION)) — see [CHANGELOG.md](CHANGELOG.md).
 
 ## Monorepo contents
 

@@ -724,22 +724,6 @@
     }
 }
 
-.block-404 {
-    .font-full {
-        font-size: 39vw;
-        line-height: 1;
-    }
-
-    min-height: calc(100vh - 2.1rem);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.wrapper.page-404 {
-    padding-top: 0;
-}
-
 .bloques-flexibles {
     .block:first-child {
 

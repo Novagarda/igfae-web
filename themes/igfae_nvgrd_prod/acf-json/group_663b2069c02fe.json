@@ -306,6 +306,130 @@
             "wpml_cf_preferences": 1
         },
         {
+            "key": "field_67c404a00001",
+            "label": "Páxina 404",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0,
+            "wpml_cf_preferences": 1
+        },
+        {
+            "key": "field_67c404a00002",
+            "label": "Titular",
+            "name": "page_404_titular",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Liña principal baixo o número 404.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Esta páxina cruzou o horizonte de sucesos",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "wpml_cf_preferences": 2
+        },
+        {
+            "key": "field_67c404a00003",
+            "label": "Texto",
+            "name": "page_404_texto",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Texto explicativo baixo o titular.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Esta páxina cruzou o horizonte de sucesos. Só queda o anel de luz que a rodeaba. Quizais cambiou de enderezo ou xa non existe: proba a buscala ou volve ao inicio.",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 4,
+            "new_lines": "",
+            "placeholder": "",
+            "wpml_cf_preferences": 2
+        },
+        {
+            "key": "field_67c404a00004",
+            "label": "Botón",
+            "name": "page_404_boton",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "Enlace do botón (por defecto, volver ao inicio).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "wpml_cf_preferences": 2
+        },
+        {
+            "key": "field_67c404a00005",
+            "label": "Vídeo de fondo",
+            "name": "page_404_video",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "Vídeo en pantalla completa (mp4 ou webm). Sen son, en bucle.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_size": "",
+            "max_size": "",
+            "mime_types": "mp4,webm",
+            "allow_in_bindings": 0,
+            "wpml_cf_preferences": 1
+        },
+        {
+            "key": "field_67c404a00006",
+            "label": "Atribución do vídeo",
+            "name": "page_404_video_atribucion",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Crédito mostrado na parte inferior (licenza, autores).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Vídeo: ESO/L. Calçada, DSS2, ESA/Hubble, RadioAstron, De Gasperin et al., Kim et al., EHT Collaboration — eso1907c (recorte, sen son) · CC BY 4.0",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 3,
+            "new_lines": "br",
+            "placeholder": "",
+            "wpml_cf_preferences": 2
+        },
+        {
             "key": "field_673f249030e04",
             "label": "Footer",
             "name": "",
@@ -403,5 +527,5 @@
     "allow_ai_access": false,
     "ai_description": "",
     "acfml_field_group_mode": "advanced",
-    "modified": 1793093537
+    "modified": 1794570749
 }

@@ -17,6 +17,8 @@ if ( ! class_exists( 'Timber' ) ) {
 	return;
 }
 
+require_once __DIR__ . '/lib/not-found.php';
+
 
 // Create our version of the TimberSite object
 class StarterSite extends TimberSite {

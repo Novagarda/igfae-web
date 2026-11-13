@@ -9,6 +9,12 @@ The canonical version is in [`VERSION`](VERSION) at the repo root; plugin and th
 
 ## [Unreleased]
 
+## [1.3.3] - 2026-11-13
+
+### Added
+
+- **404 page redesign** *(theme)* — New layout with optional background video, editable copy and CTA via **Opciones generales → Páxina 404** (ACF tab on group *Opcións*). `igfae_render_404()` (`lib/not-found.php`) centralises HTTP 404, `404.twig`, and `body.page-404` for WordPress 404 and missing staff profile URLs. Flex wrapper; footer visible.
+
 ## [1.3.2] - 2026-11-09
 
 ### Changed
