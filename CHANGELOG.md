@@ -13,7 +13,7 @@ The canonical version is in [`VERSION`](VERSION) at the repo root; plugin and th
 
 ### Changed
 
-- **María de Maeztu header logo** *(theme)* — `mm-igfae-1.svg` in `.header-excelencia` (hand-tuned, `#1F32FF`).
+- **María de Maeztu header logo** *(theme)* — `mm-igfae-1.svg` in `.header-excelencia` (`LogotipoM_Maeztu_IGFAE_act 2026` v5, `#1F32FF`).
 
 ### Fixed
 
